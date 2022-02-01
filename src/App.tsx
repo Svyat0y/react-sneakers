@@ -1,49 +1,32 @@
-import logo         from './assets/img/logo.svg';
-import cart         from './assets/img/cart.svg';
-import user         from './assets/img/user.svg';
-import heartUnliked from './assets/img/heart_unliked.svg';
-import heartLiked   from './assets/img/heart_liked.svg';
-import btnPlus      from './assets/img/btn_plus.svg';
-import btnChecked   from './assets/img/btn_checked.svg';
-import search       from './assets/img/searchSvg.svg';
-import removeBtn    from './assets/img/remove_btn.svg';
-import arrow        from './assets/img/arrow.svg';
-
-import sneakers1 from './assets/img/sneakers/sneakers1.jpg';
-import sneakers2 from './assets/img/sneakers/sneakers2.jpg';
-import sneakers3 from './assets/img/sneakers/sneakers3.jpg';
-import sneakers4 from './assets/img/sneakers/sneakers4.jpg';
-
-
 const App = (): JSX.Element => {
 	return (
 		<div className="wrapper clear">
 
-			<div className='overlay'>
+			{/*<div className='overlay'>
 				<div className='drawer'>
 					<h2>
 						Корзина
-						<img width={ 32 } height={ 32 } className='remove-btn cu-p' src={ removeBtn } alt='close'/>
+						<img width={ 32 } height={ 32 } className='remove-btn cu-p' src='/img/remove_btn.svg' alt='close'/>
 					</h2>
 
 					<div className='items'>
 
 						<div className='cartItem d-flex align-center'>
-							<img width={ 70 } height={ 70 } src={ sneakers1 } alt='sneakers'/>
+							<img width={ 70 } height={ 70 } src='/img/sneakers/sneakers1.jpg' alt='sneakers'/>
 							<div>
 								<p>Мужские Кроссовки Nike Air Max 270</p>
 								<b>12 999 руб.</b>
 							</div>
-							<img width={ 32 } height={ 32 } className='remove-btn cu-p' src={ removeBtn } alt='close'/>
+							<img width={ 32 } height={ 32 } className='remove-btn cu-p' src='/img/remove_btn.svg' alt='close'/>
 						</div>
 
 						<div className='cartItem d-flex align-center'>
-							<img width={ 70 } height={ 70 } src={ sneakers1 } alt='sneakers'/>
+							<img width={ 70 } height={ 70 } src='/img/sneakers/sneakers2.jpg' alt='sneakers'/>
 							<div>
 								<p>Мужские Кроссовки Nike Air Max 270</p>
 								<b>12 999 руб.</b>
 							</div>
-							<img width={ 32 } height={ 32 } className='remove-btn cu-p' src={ removeBtn } alt='close'/>
+							<img width={ 32 } height={ 32 } className='remove-btn cu-p' src='/img/remove_btn.svg' alt='close'/>
 						</div>
 
 					</div>
@@ -63,17 +46,15 @@ const App = (): JSX.Element => {
 						</ul>
 						<button className='greenButton'>
 							Оформить заказ
-							<img src={ arrow } alt='orderArrow'/>
+							<img src='/img/arrow.svg' alt='orderArrow'/>
 						</button>
 					</div>
-
-
 				</div>
-			</div>
+			</div>*/ }
 
 			<header className='d-flex justify-between align-center p-40'>
 				<div className='headerLeft d-flex align-center'>
-					<img width={ 40 } height={ 40 } src={ logo } alt='logo'/>
+					<img width={ 40 } height={ 40 } src='./img/logo.svg' alt='logo'/>
 					<div>
 						<h3 className='text-uppercase'>React sneakers</h3>
 						<p>Магазин лучших кроссовок</p>
@@ -81,19 +62,20 @@ const App = (): JSX.Element => {
 				</div>
 				<ul className='headerRight d-flex justify-between align-center'>
 					<li className='mr-30 cu-p align-center'>
-						<img width={ 20 } height={ 20 } src={ cart } alt='cart'/>
+						<img width={ 20 } height={ 20 } src='/img/cart.svg' alt='cart'/>
 						<span>1205 руб.</span>
 					</li>
 					<li>
-						<img width={ 20 } height={ 20 } src={ user } alt='user'/>
+						<img width={ 20 } height={ 20 } src='/img/user.svg' alt='user'/>
 					</li>
 				</ul>
 			</header>
+
 			<div className='content p-40'>
 				<div className='mb-40 d-flex justify-between align-center'>
 					<h1>Все кроссовки</h1>
 					<div className='search-block'>
-						<img src={ search } alt='search'/>
+						<img src='/img/search.svg' alt='search'/>
 						<input type='text' placeholder='Поиск..'/>
 					</div>
 				</div>
@@ -101,61 +83,61 @@ const App = (): JSX.Element => {
 				<div className='d-flex flex-wrap justify-between mt-40'>
 					<div className='card p-20 d-flex flex-column'>
 						<div className='favorite cu-p'>
-							<img width={ 32 } height={ 32 } src={ heartUnliked } alt='Unliked'/>
+							<img width={ 32 } height={ 32 } src='/img/heart_unliked.svg' alt='Unliked'/>
 						</div>
-						<img width={ 133 } height={ 112 } src={ sneakers1 } alt='sneakers1'/>
+						<img width={ 133 } height={ 112 } src='/img/sneakers/sneakers1.jpg' alt='sneakers'/>
 						<p>Мужские Кроссовки Nike Blazer Mid Suede</p>
 						<div className='d-flex justify-between align-center'>
 							<div className='d-flex flex-column'>
 								<span>Цена:</span>
 								<b>12 999 руб.</b>
 							</div>
-							<img className='cu-p' width={ 32 } height={ 32 } src={ btnPlus } alt='btn_plus'/>
+							<img className='cu-p' width={ 32 } height={ 32 } src='/img/btn_plus.svg' alt='btn_plus'/>
 						</div>
 					</div>
 
 					<div className='card p-20 d-flex flex-column'>
 						<div className='favorite cu-p'>
-							<img width={ 32 } height={ 32 } src={ heartUnliked } alt='Unliked'/>
+							<img width={ 32 } height={ 32 } src='/img/heart_unliked.svg' alt='Unliked'/>
 						</div>
-						<img width={ 133 } height={ 112 } src={ sneakers2 } alt='sneakers2'/>
+						<img width={ 133 } height={ 112 } src='/img/sneakers/sneakers2.jpg' alt='sneakers'/>
 						<p>Мужские Кроссовки Nike Air Max 270</p>
 						<div className='d-flex justify-between align-center'>
 							<div className='d-flex flex-column'>
 								<span>Цена:</span>
 								<b>12 999 руб.</b>
 							</div>
-							<img className='cu-p' width={ 32 } height={ 32 } src={ btnPlus } alt='btn_plus'/>
+							<img className='cu-p' width={ 32 } height={ 32 } src='/img/btn_plus.svg' alt='btn_plus'/>
 						</div>
 					</div>
 
 					<div className='card p-20 d-flex flex-column'>
 						<div className='favorite cu-p'>
-							<img width={ 32 } height={ 32 } src={ heartUnliked } alt='Unliked'/>
+							<img width={ 32 } height={ 32 } src='/img/heart_unliked.svg' alt='Unliked'/>
 						</div>
-						<img width={ 133 } height={ 112 } src={ sneakers2 } alt='sneakers2'/>
+						<img width={ 133 } height={ 112 } src='/img/sneakers/sneakers3.jpg' alt='sneakers'/>
 						<p>Мужские Кроссовки Nike Air Max 270</p>
 						<div className='d-flex justify-between align-center'>
 							<div className='d-flex flex-column'>
 								<span>Цена:</span>
 								<b>12 999 руб.</b>
 							</div>
-							<img className='cu-p' width={ 32 } height={ 32 } src={ btnPlus } alt='btn_plus'/>
+							<img className='cu-p' width={ 32 } height={ 32 } src='/img/btn_plus.svg' alt='btn_plus'/>
 						</div>
 					</div>
 
 					<div className='card p-20 d-flex flex-column'>
 						<div className='favorite cu-p'>
-							<img width={ 32 } height={ 32 } src={ heartUnliked } alt='Unliked'/>
+							<img width={ 32 } height={ 32 } src='/img/heart_unliked.svg' alt='Unliked'/>
 						</div>
-						<img width={ 133 } height={ 112 } src={ sneakers2 } alt='sneakers2'/>
+						<img width={ 133 } height={ 112 } src='/img/sneakers/sneakers4.jpg' alt='sneakers-img'/>
 						<p>Мужские Кроссовки Nike Air Max 270</p>
 						<div className='d-flex justify-between align-center'>
 							<div className='d-flex flex-column'>
 								<span>Цена:</span>
 								<b>12 999 руб.</b>
 							</div>
-							<img className='cu-p' width={ 32 } height={ 32 } src={ btnPlus } alt='btn_plus'/>
+							<img className='cu-p' width={ 32 } height={ 32 } src='/img/btn_plus.svg' alt='btn_plus'/>
 						</div>
 					</div>
 
