@@ -2,12 +2,14 @@ import Header     from './components/Header/Header';
 import { Drawer } from './components/Drawer';
 import { Card }   from './components/Card';
 
+import { CardProps } from './components/interfaces';
 
-const cardArray = [
+
+const cardArray: CardProps[] = [
 	{ id: 0, name: 'Мужские Кроссовки Nike Blazer Mid Suede', price: 12999, img: '/img/sneakers/sneakers1.jpg' },
 	{ id: 1, name: 'Мужские Кроссовки Nike Blazer Mid Suede', price: 12999, img: '/img/sneakers/sneakers2.jpg' },
 	{ id: 2, name: 'Мужские Кроссовки Nike Blazer Mid Suede', price: 15999, img: '/img/sneakers/sneakers3.jpg' },
-	{ id: 3, name: 'Мужские Кроссовки Nike Blazer Mid Suede', price: 15999, img: '/img/sneakers/sneakers4.jpg' },
+	{ id: 3, name: 'Мужские Кроссовки Nike Blazer Mid Suede', price: '15999', img: '/img/sneakers/sneakers4.jpg' },
 ];
 
 const App = (): JSX.Element => {
@@ -24,12 +26,13 @@ const App = (): JSX.Element => {
 					</div>
 				</div>
 				<div className='d-flex flex-wrap align-start'>
-					{ cardArray.map((item) =>
+					{ cardArray.map((item: CardProps) =>
 						<Card
 							key={ item.id }
 							name={ item.name }
 							price={ item.price }
-							img={ item.img }/>) }
+							img={ item.img }
+						/>) }
 				</div>
 			</div>
 		</div>

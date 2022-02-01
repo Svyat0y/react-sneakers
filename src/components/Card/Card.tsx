@@ -1,6 +1,6 @@
-import { CardProps } from './Card.props';
-
 import styles from './Card.module.scss';
+
+import { CardProps } from '../interfaces';
 
 
 const Card = ({ name, price, img }: CardProps): JSX.Element => {
