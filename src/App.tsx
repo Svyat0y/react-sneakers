@@ -1,21 +1,21 @@
-import logo         from './assets/img/logo.svg'
-import cart         from './assets/img/cart.svg'
-import user         from './assets/img/user.svg'
-import heartUnliked from './assets/img/heart_unliked.svg'
-import heartLiked   from './assets/img/heart_liked.svg'
-import btnPlus      from './assets/img/btn_plus.svg'
-import btnChecked   from './assets/img/btn_checked.svg'
-import search       from './assets/img/searchSvg.svg'
-import removeBtn    from './assets/img/remove_btn.svg'
-import arrow        from './assets/img/arrow.svg'
+import logo         from './assets/img/logo.svg';
+import cart         from './assets/img/cart.svg';
+import user         from './assets/img/user.svg';
+import heartUnliked from './assets/img/heart_unliked.svg';
+import heartLiked   from './assets/img/heart_liked.svg';
+import btnPlus      from './assets/img/btn_plus.svg';
+import btnChecked   from './assets/img/btn_checked.svg';
+import search       from './assets/img/searchSvg.svg';
+import removeBtn    from './assets/img/remove_btn.svg';
+import arrow        from './assets/img/arrow.svg';
 
-import sneakers1 from './assets/img/sneakers/sneakers1.jpg'
-import sneakers2 from './assets/img/sneakers/sneakers2.jpg'
-import sneakers3 from './assets/img/sneakers/sneakers3.jpg'
-import sneakers4 from './assets/img/sneakers/sneakers4.jpg'
+import sneakers1 from './assets/img/sneakers/sneakers1.jpg';
+import sneakers2 from './assets/img/sneakers/sneakers2.jpg';
+import sneakers3 from './assets/img/sneakers/sneakers3.jpg';
+import sneakers4 from './assets/img/sneakers/sneakers4.jpg';
 
 
-const App = () => {
+const App = (): JSX.Element => {
 	return (
 		<div className="wrapper clear">
 
@@ -164,6 +164,6 @@ const App = () => {
 			</div>
 		</div>
 	);
-}
+};
 
-export default App
+export default App;
