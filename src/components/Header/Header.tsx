@@ -1,7 +1,12 @@
 import styles from './Header.module.scss';
 
 
-const Header = (): JSX.Element => {
+interface HeaderProps {
+	onClickCart?: () => void
+}
+
+
+const Header = ({ onClickCart }: HeaderProps): JSX.Element => {
 	return (
 		<header className={ styles.header }>
 			<div className={ styles.headerLeft }>
@@ -12,7 +17,7 @@ const Header = (): JSX.Element => {
 				</div>
 			</div>
 			<ul className={ styles.headerRight }>
-				<li>
+				<li onClick={ onClickCart }>
 					<img width={ 20 } height={ 20 } src='/img/cart.svg' alt='cart'/>
 					<span>1205 руб.</span>
 				</li>

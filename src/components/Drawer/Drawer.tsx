@@ -1,14 +1,25 @@
 import styles from './Drawer.module.scss';
 
 
-const Drawer = (): JSX.Element => {
+interface DrawerProps {
+	onClose?: () => void
+}
+
+const Drawer = ({ onClose }: DrawerProps): JSX.Element => {
 
 	return (
 		<div className={ styles.overlay }>
 			<div className={ styles.drawer }>
 				<h2>
 					Корзина
-					<img width={ 32 } height={ 32 } className={ styles.removeBtn } src='/img/remove_btn.svg' alt='close'/>
+					<img
+						onClick={ onClose }
+						width={ 32 }
+						height={ 32 }
+						className={ styles.removeBtn }
+						src='/img/remove_btn.svg'
+						alt='close'
+					/>
 				</h2>
 				<div className={ styles.items }>
 

@@ -1,22 +1,28 @@
+import { useEffect, useState } from 'react';
+
 import Header     from './components/Header/Header';
 import { Drawer } from './components/Drawer';
 import { Card }   from './components/Card';
 
-import { CardProps } from './components/interfaces';
+import { CardProps }     from './interfaces';
+import { fetchSneakers } from './api/api';
 
-
-const cardArray: CardProps[] = [
-	{ id: 0, name: 'Мужские Кроссовки Nike Blazer Mid Suede', price: 12999, img: '/img/sneakers/sneakers1.jpg' },
-	{ id: 1, name: 'Мужские Кроссовки Nike Blazer Mid Suede', price: 12999, img: '/img/sneakers/sneakers2.jpg' },
-	{ id: 2, name: 'Мужские Кроссовки Nike Blazer Mid Suede', price: 15999, img: '/img/sneakers/sneakers3.jpg' },
-	{ id: 3, name: 'Мужские Кроссовки Nike Blazer Mid Suede', price: '15999', img: '/img/sneakers/sneakers4.jpg' },
-];
 
 const App = (): JSX.Element => {
+	const [ sneakers, setSneakers ] = useState<CardProps[]>([]);
+	const [ cartOpened, setCartOpened ] = useState<boolean>(false);
+
+	console.log(sneakers);
+
+	useEffect(() => {
+		fetchSneakers()
+			.then(data => setSneakers(data));
+	}, []);
+
 	return (
 		<div className="wrapper clear">
-			<Drawer/>
-			<Header/>
+			{ cartOpened && <Drawer onClose={ () => setCartOpened(false) }/> }
+			<Header onClickCart={ () => setCartOpened(true) }/>
 			<div className='content p-40'>
 				<div className='mb-40 d-flex justify-between align-center'>
 					<h1>Все кроссовки</h1>
@@ -26,12 +32,14 @@ const App = (): JSX.Element => {
 					</div>
 				</div>
 				<div className='d-flex flex-wrap align-start'>
-					{ cardArray.map((item: CardProps) =>
+					{ sneakers && sneakers.map((item: CardProps) =>
 						<Card
 							key={ item.id }
-							name={ item.name }
+							title={ item.title }
 							price={ item.price }
 							img={ item.img }
+							onPlus={ () => console.log('добавлено в корзину') }
+							onFavorite={ () => console.log('добавлено в избранные') }
 						/>) }
 				</div>
 			</div>
