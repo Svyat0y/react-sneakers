@@ -1,11 +1,13 @@
-import styles from './Drawer.module.scss'
+import styles    from './Drawer.module.scss'
+import { ICard } from '../../interfaces'
 
 
 interface DrawerProps {
-	onClose?: () => void
+	onClose: () => void
+	cartItems: Array<ICard>
 }
 
-const Drawer = ({ onClose }: DrawerProps): JSX.Element => {
+const Drawer = ({ onClose, cartItems }: DrawerProps): JSX.Element => {
 
 	return (
 		<div className={ styles.overlay }>
@@ -23,14 +25,14 @@ const Drawer = ({ onClose }: DrawerProps): JSX.Element => {
 				</h2>
 				<div className={ styles.items }>
 
-					<div className={ styles.cartItem }>
-						<img width={ 70 } height={ 70 } src='/img/sneakers/sneakers1.jpg' alt='sneakers'/>
+					{ cartItems && cartItems.map(item => <div key={ item.id } className={ styles.cartItem }>
+						<img width={ 70 } height={ 70 } src={ item.img } alt='sneakers'/>
 						<div>
-							<p>Мужские Кроссовки Nike Air Max 270</p>
-							<b>12 999 руб.</b>
+							<p>{ item.title }</p>
+							<b>{ item.price } руб.</b>
 						</div>
 						<img width={ 32 } height={ 32 } className={ styles.removeBtn } src='/img/remove_btn.svg' alt='close'/>
-					</div>
+					</div>) }
 
 				</div>
 				<div className={ styles.cartTotalBlock }>

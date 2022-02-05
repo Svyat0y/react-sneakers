@@ -2,24 +2,36 @@ import { useState } from 'react'
 
 import styles from './Card.module.scss'
 
-import { CardProps } from '../../interfaces'
+import { ICard } from '../../interfaces'
 
+
+interface CardProps extends ICard {
+	onPlus: () => void
+	onFavorite: () => void
+}
 
 const Card = ({ title, price, img, onPlus, onFavorite }: CardProps): JSX.Element => {
-	const [ isAdded, setIsAdded ] = useState<boolean>(false)
+	const [ isAdded, setIsAdded ] = useState(false)
+	const [ isFavorite, setIsFavorite ] = useState(false)
 
-	const onClickPlus = (): void => {
+	const onClickPlus = () => {
+		onPlus()
 		setIsAdded(!isAdded)
+	}
+
+	const onClickFavorite = () => {
+		onFavorite()
+		setIsFavorite(!isFavorite)
 	}
 
 	return (
 		<div className={ styles.card }>
 			<img
-				onClick={ onFavorite }
+				onClick={ onClickFavorite }
 				className={ styles.favorite }
 				width={ 32 }
 				height={ 32 }
-				src='/img/heart_unliked.svg'
+				src={ isFavorite ? '/img/heart_liked.svg' : '/img/heart_unliked.svg' }
 				alt='Unliked'
 			/>
 			<img
