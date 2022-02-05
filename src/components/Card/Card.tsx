@@ -1,14 +1,8 @@
+import styles       from './Card.module.scss'
 import { useState } from 'react'
 
-import styles from './Card.module.scss'
+import { CardProps } from './Card.Props'
 
-import { ICard } from '../../interfaces'
-
-
-interface CardProps extends ICard {
-	onPlus: () => void
-	onFavorite: () => void
-}
 
 const Card = ({ title, price, img, onPlus, onFavorite }: CardProps): JSX.Element => {
 	const [ isAdded, setIsAdded ] = useState(false)
