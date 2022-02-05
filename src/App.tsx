@@ -4,22 +4,29 @@ import Header     from './components/Header/Header'
 import { Drawer } from './components/Drawer'
 import { Card }   from './components/Card'
 
-import { CardProps }     from './interfaces'
+import { ICard }         from './interfaces'
 import { fetchSneakers } from './api/api'
 
 
 const App = (): JSX.Element => {
-	const [ sneakers, setSneakers ] = useState<Array<CardProps>>([])
-	const [ cartOpened, setCartOpened ] = useState<boolean>(false)
+	const [ sneakers, setSneakers ] = useState<Array<ICard>>([])
+	const [ cartOpened, setCartOpened ] = useState(false)
+	const [ cartItems, setCartItems ] = useState<Array<ICard>>([])
 
 	useEffect(() => {
 		fetchSneakers()
 			.then((data) => setSneakers(data))
 	}, [])
 
+	const onAddedToCart = (obj: ICard) => {
+		if (!cartItems.includes(obj)) {
+			setCartItems(prevState => [ ...prevState, obj ])
+		}
+	}
+
 	return (
 		<div className="wrapper clear">
-			{ cartOpened && <Drawer onClose={ () => setCartOpened(false) }/> }
+			{ cartOpened && <Drawer cartItems={ cartItems } onClose={ () => setCartOpened(false) }/> }
 			<Header onClickCart={ () => setCartOpened(true) }/>
 			<div className="content p-40">
 				<div className="mb-40 d-flex justify-between align-center">
@@ -30,13 +37,13 @@ const App = (): JSX.Element => {
 					</div>
 				</div>
 				<div className="cardWrapper">
-					{ sneakers && sneakers.map((item: CardProps) => (
+					{ sneakers && sneakers.map((item: ICard) => (
 						<Card
 							key={ item.id }
 							title={ item.title }
 							price={ item.price }
 							img={ item.img }
-							onPlus={ () => console.log('добавлено в корзину') }
+							onPlus={ () => onAddedToCart(item) }
 							onFavorite={ () => console.log('добавлено в избранные') }
 						/>
 					)) }

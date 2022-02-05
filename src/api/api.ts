@@ -1,8 +1,8 @@
-import axios         from 'axios'
-import { CardProps } from '../interfaces'
+import axios     from 'axios'
+import { ICard } from '../interfaces/card.interface'
 
 
 export const fetchSneakers = async () => {
-	return await axios.get('https://61fab37792093f0017ad99eb.mockapi.io/sneakers')
-		.then(({ data }: { data: CardProps[] }) => data)
+	const { data }: { data: Array<ICard> } = await axios.get<Array<ICard>>('https://61fab37792093f0017ad99eb.mockapi.io/sneakers')
+	return data
 } 
