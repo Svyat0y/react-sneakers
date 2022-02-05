@@ -1,4 +1,4 @@
-import styles from './Drawer.module.scss';
+import styles from './Drawer.module.scss'
 
 
 interface DrawerProps {
@@ -53,7 +53,7 @@ const Drawer = ({ onClose }: DrawerProps): JSX.Element => {
 				</div>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default Drawer;
+export default Drawer

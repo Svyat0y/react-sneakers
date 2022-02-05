@@ -1,12 +1,10 @@
 .card {
   border: 1px solid #F3F3F3;
-  max-width: 210px;
   border-radius: 40px;
-  margin: 0 20px 30px 20px;
+  min-width: 210px;
   transition: box-shadow ease-in-out .3s, transform .2s ease-in-out;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
+  flex: 1 0 23.5%;
 
   .favorite {
     position: absolute;

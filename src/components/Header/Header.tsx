@@ -1,4 +1,4 @@
-import styles from './Header.module.scss';
+import styles from './Header.module.scss'
 
 
 interface HeaderProps {
@@ -26,7 +26,7 @@ const Header = ({ onClickCart }: HeaderProps): JSX.Element => {
 				</li>
 			</ul>
 		</header>
-	);
-};
+	)
+}
 
-export default Header;
+export default Header

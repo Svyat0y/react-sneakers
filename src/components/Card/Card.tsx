@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
-import styles from './Card.module.scss';
+import styles from './Card.module.scss'
 
-import { CardProps } from '../../interfaces';
+import { CardProps } from '../../interfaces'
 
 
 const Card = ({ title, price, img, onPlus, onFavorite }: CardProps): JSX.Element => {
-	const [ isAdded, setIsAdded ] = useState<boolean>(false);
+	const [ isAdded, setIsAdded ] = useState<boolean>(false)
 
 	const onClickPlus = (): void => {
-		setIsAdded(!isAdded);
-	};
+		setIsAdded(!isAdded)
+	}
 
 	return (
 		<div className={ styles.card }>
@@ -32,7 +32,7 @@ const Card = ({ title, price, img, onPlus, onFavorite }: CardProps): JSX.Element
 			<div className='d-flex justify-between align-center'>
 				<div className='d-flex flex-column'>
 					<span>Цена:</span>
-					<b>{ price } руб.</b>
+					<b>{ price + price } руб.</b>
 				</div>
 				<img
 					onClick={ onClickPlus }
@@ -44,7 +44,7 @@ const Card = ({ title, price, img, onPlus, onFavorite }: CardProps): JSX.Element
 				/>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default Card;
+export default Card

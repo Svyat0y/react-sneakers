@@ -1,1 +1,1 @@
-export type { CardProps } from './card.interface';
+export type { CardProps } from './card.interface'

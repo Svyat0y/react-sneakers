@@ -44,7 +44,6 @@ body {
   }
 }
 
-
 .greenButton {
   width: 100%;
   height: 55px;
@@ -60,4 +59,11 @@ body {
   &:hover {
     background: darken(#9DD558, 10%);
   }
+}
+
+.cardWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 20px;
 }
