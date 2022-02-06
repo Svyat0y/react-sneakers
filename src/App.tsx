@@ -1,13 +1,14 @@
 import { ICard }                            from './interfaces'
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import { Header }        from './components/Header'
-import { Drawer }        from './components/Drawer'
-import { ContentHeader } from './components/ContentHeader'
-import { Card }          from './components/Card'
+import { Header } from './components/Header'
+import { Drawer } from './components/Drawer'
 
 import { fetchSneakers, fetchAddToCart, fetchDeleteCart } from './api'
-import { fetchAddToFavorites }                            from './api/api'
+import { fetchAddToFavorites, fetchDeleteFavorites }      from './api/api'
+import { Route, Routes }                                  from 'react-router'
+import { Home }                                           from './pages/Home'
+import { Favorites }                                      from './pages/Favorites'
 
 
 const App = (): JSX.Element => {
@@ -17,20 +18,6 @@ const App = (): JSX.Element => {
 	const [ favoriteItems, setFavoriteItems ] = useState<Array<ICard>>([])
 	const [ searchValue, setInputValue ] = useState('')
 
-	const filteredSneakers = sneakers.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-
-	const visibleItems = sneakers && filteredSneakers.map((item: ICard, index: number) => {
-		return (
-			<Card
-				key={ index }
-				title={ item.title }
-				price={ item.price }
-				img={ item.img }
-				onPlus={ () => onAddToCart(item) }
-				onFavorite={ () => onAddToFavorite(item) }/>
-		)
-	})
-
 	useEffect(() => {
 		fetchSneakers()
 			.then(data => setSneakers(data))
@@ -38,29 +25,46 @@ const App = (): JSX.Element => {
 	}, [])
 
 	const onAddToCart = (obj: ICard) => {
-		if (!cartItems.includes(obj)) {
-			setCartItems(prev => [ ...prev, obj ])
-			console.log(obj)
+		try {
+			if (!cartItems.includes(obj)) {
+				setCartItems(prev => [ ...prev, obj ])
+				console.log(obj)
 
-			fetchAddToCart(obj)
-				.catch(e => console.log(e.message))
+				fetchAddToCart(obj)
+					.catch(e => console.log(e.message))
+			}
+		}
+		catch (error) {
+			alert(error)
 		}
 	}
 
-	const onAddToFavorite = (obj: ICard) => {
-		if (!favoriteItems.includes(obj)) {
-			setFavoriteItems(prev => [ ...prev, obj ])
-
-			fetchAddToFavorites(obj)
-				.catch(e => console.log(e.message))
+	const onAddToFavorite = async (obj: ICard) => {
+		try {
+			if (favoriteItems.find(favObj => favObj.id === obj.id)) {
+				fetchDeleteFavorites(obj.id)
+					.catch(e => console.log(e.message))
+			}
+			else{
+				const data: any = await fetchAddToFavorites(obj)
+					.catch(e => console.log(e.message))
+				setFavoriteItems(prev => [ ...prev, data ])
+			}
+		}
+		catch (error) {
+			alert(error)
 		}
 	}
 
 	const onRemoveCart = (obj: ICard) => {
-		setCartItems(prev => prev.filter(item => item !== obj))
-
-		fetchDeleteCart(obj.id)
-			.catch(e => console.log(e.message))
+		try {
+			fetchDeleteCart(obj.id)
+				.catch(e => console.log(e.message))
+			setCartItems(prev => prev.filter(item => item !== obj))
+		}
+		catch (error) {
+			alert(error)
+		}
 	}
 
 	const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -77,12 +81,24 @@ const App = (): JSX.Element => {
 				setCartItems={ setCartItems }
 			/> }
 			<Header onClickCart={ () => setCartOpened(true) }/>
-			<div className="content p-40">
-				<ContentHeader searchValue={ searchValue } onHandleChange={ onHandleChange }/>
-				<div className="cardWrapper">
-					{ visibleItems }
-				</div>
-			</div>
+			<Routes>
+				<Route path={ '*' } element={
+					<Home
+						sneakers={ sneakers }
+						onHandleChange={ onHandleChange }
+						searchValue={ searchValue }
+						onAddToFavorite={ onAddToFavorite }
+						onAddToCart={ onAddToCart }/>
+				}/>
+				<Route path={ '/favorites/*' } element={
+					<Favorites
+						favoriteItems={ favoriteItems }
+						onAddToCart={ onAddToCart }
+						setFavoriteItems={ setFavoriteItems }
+						onAddToFavorite={ onAddToFavorite }
+					/>
+				}/>
+			</Routes>
 
 		</div>
 	)

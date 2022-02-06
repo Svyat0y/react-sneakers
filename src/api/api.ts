@@ -13,7 +13,11 @@ export const fetchSneakers = async (): Promise<Array<ICard>> => {
 
 export const fetchCartItems = async () => {
 	const { data }: { data: Array<ICard> } = await instance.get<Array<ICard>>('cart')
+	return data
+}
 
+export const fetchFavoriteItems = async () => {
+	const { data }: { data: Array<ICard> } = await instance.get<Array<ICard>>('favorites')
 	return data
 }
 
@@ -22,9 +26,14 @@ export const fetchAddToCart = async (obj: ICard) => {
 }
 
 export const fetchAddToFavorites = async (obj: ICard) => {
-	await instance.post<ICard>('favorites', obj)
+	const { data }: { data: ICard } = await instance.post<ICard>('favorites', obj)
+	return data
 }
 
 export const fetchDeleteCart = async (id?: number) => {
 	await instance.delete<ICard>(`cart/${ id }`)
+}
+
+export const fetchDeleteFavorites = async (id?: number) => {
+	await instance.delete<ICard>(`favorites/${ id }`)
 }
