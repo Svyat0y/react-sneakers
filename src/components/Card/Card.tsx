@@ -3,9 +3,9 @@ import { CardProps } from './Card.Props'
 import { useState }  from 'react'
 
 
-const Card = ({ title, price, img, onPlus, onFavorite }: CardProps): JSX.Element => {
+const Card = ({ title, price, img, onPlus, onFavorite, isFavourite = false }: CardProps): JSX.Element => {
 	const [ isAdded, setIsAdded ] = useState(false)
-	const [ isFavorite, setIsFavorite ] = useState(false)
+	const [ isFavorite, setIsFavorite ] = useState(isFavourite)
 
 	const onClickPlus = () => {
 		onPlus()
