@@ -1,7 +1,6 @@
-import styles       from './Card.module.scss'
-import { useState } from 'react'
-
+import styles        from './Card.module.scss'
 import { CardProps } from './Card.Props'
+import { useState }  from 'react'
 
 
 const Card = ({ title, price, img, onPlus, onFavorite }: CardProps): JSX.Element => {
@@ -10,12 +9,12 @@ const Card = ({ title, price, img, onPlus, onFavorite }: CardProps): JSX.Element
 
 	const onClickPlus = () => {
 		onPlus()
-		setIsAdded(!isAdded)
+		setIsAdded(true)
 	}
 
 	const onClickFavorite = () => {
 		onFavorite()
-		setIsFavorite(!isFavorite)
+		setIsFavorite(true)
 	}
 
 	return (
@@ -38,7 +37,7 @@ const Card = ({ title, price, img, onPlus, onFavorite }: CardProps): JSX.Element
 			<div className='d-flex justify-between align-center'>
 				<div className='d-flex flex-column'>
 					<span>Цена:</span>
-					<b>{ price + price } руб.</b>
+					<b>{ price } руб.</b>
 				</div>
 				<img
 					onClick={ onClickPlus }
