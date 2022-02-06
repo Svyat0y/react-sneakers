@@ -1,13 +1,13 @@
 import { ICard }                            from './interfaces'
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import { Header }      from './components/Header'
-import { Drawer }      from './components/Drawer'
-import { SearchPanel } from './components/SearchPanel'
-import { Card }        from './components/Card'
+import { Header }        from './components/Header'
+import { Drawer }        from './components/Drawer'
+import { ContentHeader } from './components/ContentHeader'
+import { Card }          from './components/Card'
 
-import { fetchSneakers, fetchCartItems, fetchAddToCart, fetchDeleteCart } from './api'
-import { fetchAddToFavorites }                                            from './api/api'
+import { fetchSneakers, fetchAddToCart, fetchDeleteCart } from './api'
+import { fetchAddToFavorites }                            from './api/api'
 
 
 const App = (): JSX.Element => {
@@ -35,15 +35,12 @@ const App = (): JSX.Element => {
 		fetchSneakers()
 			.then(data => setSneakers(data))
 			.catch(e => console.log(e.message))
-
-		fetchCartItems()
-			.then(data => setCartItems(data))
-			.catch(e => console.log(e.message))
 	}, [])
 
 	const onAddToCart = (obj: ICard) => {
 		if (!cartItems.includes(obj)) {
 			setCartItems(prev => [ ...prev, obj ])
+			console.log(obj)
 
 			fetchAddToCart(obj)
 				.catch(e => console.log(e.message))
@@ -53,7 +50,7 @@ const App = (): JSX.Element => {
 	const onAddToFavorite = (obj: ICard) => {
 		if (!favoriteItems.includes(obj)) {
 			setFavoriteItems(prev => [ ...prev, obj ])
-			
+
 			fetchAddToFavorites(obj)
 				.catch(e => console.log(e.message))
 		}
@@ -77,10 +74,11 @@ const App = (): JSX.Element => {
 				cartItems={ cartItems }
 				onRemove={ onRemoveCart }
 				onClose={ () => setCartOpened(false) }
+				setCartItems={ setCartItems }
 			/> }
 			<Header onClickCart={ () => setCartOpened(true) }/>
 			<div className="content p-40">
-				<SearchPanel searchValue={ searchValue } onHandleChange={ onHandleChange }/>
+				<ContentHeader searchValue={ searchValue } onHandleChange={ onHandleChange }/>
 				<div className="cardWrapper">
 					{ visibleItems }
 				</div>

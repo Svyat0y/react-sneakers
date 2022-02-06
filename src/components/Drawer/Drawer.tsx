@@ -1,8 +1,16 @@
-import styles          from './Drawer.module.scss'
-import { DrawerProps } from './Drawer.props'
+import styles             from './Drawer.module.scss'
+import { DrawerProps }    from './Drawer.props'
+import { useEffect }      from 'react'
+import { fetchCartItems } from '../../api'
 
 
-const Drawer = ({ onClose, onRemove, cartItems }: DrawerProps): JSX.Element => {
+const Drawer = ({ onClose, onRemove, cartItems, setCartItems }: DrawerProps): JSX.Element => {
+
+	useEffect(() => {
+		fetchCartItems()
+			.then(data => setCartItems(data))
+			.catch(e => console.log(e.message))
+	}, [])
 
 	return (
 		<div className={ styles.overlay }>

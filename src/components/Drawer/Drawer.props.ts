@@ -5,4 +5,5 @@ export interface DrawerProps {
 	onClose: () => void
 	onRemove: (obj: ICard) => void
 	cartItems: Array<ICard>
+	setCartItems: (data: Array<ICard>) => void
 }

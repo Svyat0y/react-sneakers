@@ -1,8 +1,8 @@
-import styles               from './SearchPanel.module.scss'
-import { SearchPanelProps } from './SearchPanel.props'
+import styles                 from './ContentHeader.module.scss'
+import { ContentHeaderProps } from './ContentHeader.props'
 
 
-const SearchPanel = ({ onHandleChange, searchValue }: SearchPanelProps) => {
+const ContentHeader = ({ onHandleChange, searchValue }: ContentHeaderProps) => {
 	return (
 		<div className="mb-40 d-flex justify-between align-center">
 			<h1>Все кроссовки</h1>
@@ -14,4 +14,4 @@ const SearchPanel = ({ onHandleChange, searchValue }: SearchPanelProps) => {
 	)
 }
 
-export default SearchPanel
+export default ContentHeader

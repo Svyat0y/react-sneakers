@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react'
 
 
-export interface SearchPanelProps {
+export interface ContentHeaderProps {
 	onHandleChange: (e: ChangeEvent<HTMLInputElement>) => void
 	searchValue: string
 }
