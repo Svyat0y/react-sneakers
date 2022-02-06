@@ -1,13 +1,16 @@
-import styles    from './Drawer.module.scss'
-import { ICard } from '../../interfaces'
+import styles             from './Drawer.module.scss'
+import { DrawerProps }    from './Drawer.props'
+import { useEffect }      from 'react'
+import { fetchCartItems } from '../../api'
 
 
-interface DrawerProps {
-	onClose: () => void
-	cartItems: Array<ICard>
-}
+const Drawer = ({ onClose, onRemove, cartItems, setCartItems }: DrawerProps): JSX.Element => {
 
-const Drawer = ({ onClose, cartItems }: DrawerProps): JSX.Element => {
+	useEffect(() => {
+		fetchCartItems()
+			.then(data => setCartItems(data))
+			.catch(e => console.log(e.message))
+	}, [])
 
 	return (
 		<div className={ styles.overlay }>
@@ -31,7 +34,12 @@ const Drawer = ({ onClose, cartItems }: DrawerProps): JSX.Element => {
 							<p>{ item.title }</p>
 							<b>{ item.price } руб.</b>
 						</div>
-						<img width={ 32 } height={ 32 } className={ styles.removeBtn } src='/img/remove_btn.svg' alt='close'/>
+						<img
+							onClick={ () => onRemove(item) }
+							width={ 32 } height={ 32 }
+							className={ styles.removeBtn }
+							src='/img/remove_btn.svg'
+							alt='close'/>
 					</div>) }
 
 				</div>

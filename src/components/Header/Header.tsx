@@ -1,9 +1,5 @@
-import styles from './Header.module.scss'
-
-
-interface HeaderProps {
-	onClickCart?: () => void
-}
+import styles          from './Header.module.scss'
+import { HeaderProps } from './Header.props'
 
 
 const Header = ({ onClickCart }: HeaderProps): JSX.Element => {

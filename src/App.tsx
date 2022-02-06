@@ -1,54 +1,89 @@
-import { useEffect, useState } from 'react'
+import { ICard }                            from './interfaces'
+import { ChangeEvent, useEffect, useState } from 'react'
 
-import Header     from './components/Header/Header'
-import { Drawer } from './components/Drawer'
-import { Card }   from './components/Card'
+import { Header }        from './components/Header'
+import { Drawer }        from './components/Drawer'
+import { ContentHeader } from './components/ContentHeader'
+import { Card }          from './components/Card'
 
-import { ICard }         from './interfaces'
-import { fetchSneakers } from './api/api'
+import { fetchSneakers, fetchAddToCart, fetchDeleteCart } from './api'
+import { fetchAddToFavorites }                            from './api/api'
 
 
 const App = (): JSX.Element => {
 	const [ sneakers, setSneakers ] = useState<Array<ICard>>([])
 	const [ cartOpened, setCartOpened ] = useState(false)
 	const [ cartItems, setCartItems ] = useState<Array<ICard>>([])
+	const [ favoriteItems, setFavoriteItems ] = useState<Array<ICard>>([])
+	const [ searchValue, setInputValue ] = useState('')
+
+	const filteredSneakers = sneakers.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+
+	const visibleItems = sneakers && filteredSneakers.map((item: ICard, index: number) => {
+		return (
+			<Card
+				key={ index }
+				title={ item.title }
+				price={ item.price }
+				img={ item.img }
+				onPlus={ () => onAddToCart(item) }
+				onFavorite={ () => onAddToFavorite(item) }/>
+		)
+	})
 
 	useEffect(() => {
 		fetchSneakers()
-			.then((data) => setSneakers(data))
+			.then(data => setSneakers(data))
+			.catch(e => console.log(e.message))
 	}, [])
 
-	const onAddedToCart = (obj: ICard) => {
+	const onAddToCart = (obj: ICard) => {
 		if (!cartItems.includes(obj)) {
-			setCartItems(prevState => [ ...prevState, obj ])
+			setCartItems(prev => [ ...prev, obj ])
+			console.log(obj)
+
+			fetchAddToCart(obj)
+				.catch(e => console.log(e.message))
 		}
+	}
+
+	const onAddToFavorite = (obj: ICard) => {
+		if (!favoriteItems.includes(obj)) {
+			setFavoriteItems(prev => [ ...prev, obj ])
+
+			fetchAddToFavorites(obj)
+				.catch(e => console.log(e.message))
+		}
+	}
+
+	const onRemoveCart = (obj: ICard) => {
+		setCartItems(prev => prev.filter(item => item !== obj))
+
+		fetchDeleteCart(obj.id)
+			.catch(e => console.log(e.message))
+	}
+
+	const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value
+		setInputValue(value)
 	}
 
 	return (
 		<div className="wrapper clear">
-			{ cartOpened && <Drawer cartItems={ cartItems } onClose={ () => setCartOpened(false) }/> }
+			{ cartOpened && <Drawer
+				cartItems={ cartItems }
+				onRemove={ onRemoveCart }
+				onClose={ () => setCartOpened(false) }
+				setCartItems={ setCartItems }
+			/> }
 			<Header onClickCart={ () => setCartOpened(true) }/>
 			<div className="content p-40">
-				<div className="mb-40 d-flex justify-between align-center">
-					<h1>Все кроссовки</h1>
-					<div className="search-block">
-						<img src="/img/search.svg" alt="search"/>
-						<input type="text" placeholder="Поиск.."/>
-					</div>
-				</div>
+				<ContentHeader searchValue={ searchValue } onHandleChange={ onHandleChange }/>
 				<div className="cardWrapper">
-					{ sneakers && sneakers.map((item: ICard) => (
-						<Card
-							key={ item.id }
-							title={ item.title }
-							price={ item.price }
-							img={ item.img }
-							onPlus={ () => onAddedToCart(item) }
-							onFavorite={ () => console.log('добавлено в избранные') }
-						/>
-					)) }
+					{ visibleItems }
 				</div>
 			</div>
+
 		</div>
 	)
 }
