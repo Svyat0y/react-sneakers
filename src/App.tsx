@@ -90,7 +90,7 @@ const App = (): JSX.Element => {
 						onAddToFavorite={ onAddToFavorite }
 						onAddToCart={ onAddToCart }/>
 				}/>
-				<Route path={ '/favorites/*' } element={
+				<Route path={ 'favorites/*' } element={
 					<Favorites
 						favoriteItems={ favoriteItems }
 						onAddToCart={ onAddToCart }

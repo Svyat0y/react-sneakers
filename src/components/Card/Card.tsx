@@ -9,12 +9,12 @@ const Card = ({ title, price, img, onPlus, onFavorite, isFavourite = false }: Ca
 
 	const onClickPlus = () => {
 		onPlus()
-		setIsAdded(true)
+		setIsAdded(!isAdded)
 	}
 
 	const onClickFavorite = () => {
 		onFavorite()
-		setIsFavorite(true)
+		setIsFavorite(!isFavorite)
 	}
 
 	return (

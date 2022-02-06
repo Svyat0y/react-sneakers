@@ -1,0 +1,26 @@
+.emptyWrapped {
+  max-width: 285px;
+  margin: 0 auto;
+  text-align: center;
+
+  p {
+    color: #9D9D9D;
+    margin-bottom: 40px;
+  }
+}
+
+.greenButton {
+  position: relative;
+
+  &:hover img {
+    transform: translateX(-5px) rotate(180deg);
+  }
+
+  img {
+    transform: rotate(180deg);
+    position: absolute;
+    left: 30px;
+    top: 21px;
+    transition: ease-in-out .2s;
+  }
+}

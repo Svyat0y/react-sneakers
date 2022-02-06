@@ -5,6 +5,7 @@ import { ICard }              from '../../interfaces'
 import { Card }               from '../../components/Card'
 import { useEffect }          from 'react'
 import { fetchFavoriteItems } from '../../api/api'
+import { Empty }              from '../../components/Empty'
 
 
 const Favorites = (
@@ -30,9 +31,12 @@ const Favorites = (
 
 	return (
 		<div className={ styles.content }>
-			<ContentHeader searchValue={ searchValue } onHandleChange={ onHandleChange }/>
+			<ContentHeader title={ 'Мои закладки' } searchValue={ searchValue } onHandleChange={ onHandleChange }/>
 			<div className="cardWrapper">
-				{ items }
+				{ favoriteItems && favoriteItems.length > 0
+					? items
+					: <Empty size={ 70 } image='/img/smile_favourite.svg'/>
+				}
 			</div>
 		</div>
 	)

@@ -22,7 +22,7 @@ const Home = ({ sneakers, searchValue, onHandleChange, onAddToCart, onAddToFavor
 	})
 	return (
 		<div className={ styles.content }>
-			<ContentHeader searchValue={ searchValue } onHandleChange={ onHandleChange }/>
+			<ContentHeader title={ 'Все кроссовки' } searchValue={ searchValue } onHandleChange={ onHandleChange }/>
 			<div className="cardWrapper">
 				{ visibleItems }
 			</div>
