@@ -1,14 +1,14 @@
 import { ICard }                            from './interfaces'
 import { ChangeEvent, useEffect, useState } from 'react'
 
-import { Header } from './components/Header'
-import { Drawer } from './components/Drawer'
+import { Header }    from './components/Header'
+import { Drawer }    from './components/Drawer'
+import { Home }      from './pages/Home'
+import { Favorites } from './pages/Favorites'
 
 import { fetchSneakers, fetchAddToCart, fetchDeleteCart } from './api'
 import { fetchAddToFavorites, fetchDeleteFavorites }      from './api/api'
-import { Route, Routes }                                  from 'react-router'
-import { Home }                                           from './pages/Home'
-import { Favorites }                                      from './pages/Favorites'
+import { Route, Routes }                                  from 'react-router-dom'
 
 
 const App = (): JSX.Element => {
@@ -24,14 +24,15 @@ const App = (): JSX.Element => {
 			.catch(e => console.log(e.message))
 	}, [])
 
-	const onAddToCart = (obj: ICard) => {
+	const onAddToCart = async (obj: ICard) => {
 		try {
-			if (!cartItems.includes(obj)) {
+			if (cartItems.find(item => Number(item.id) === Number(obj.id))) {
+				setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
+				await fetchDeleteCart(obj.id)
+			}
+			else{
+				await fetchAddToCart(obj)
 				setCartItems(prev => [ ...prev, obj ])
-				console.log(obj)
-
-				fetchAddToCart(obj)
-					.catch(e => console.log(e.message))
 			}
 		}
 		catch (error) {
@@ -41,13 +42,11 @@ const App = (): JSX.Element => {
 
 	const onAddToFavorite = async (obj: ICard) => {
 		try {
-			if (favoriteItems.find(favObj => favObj.id === obj.id)) {
-				fetchDeleteFavorites(obj.id)
-					.catch(e => console.log(e.message))
+			if (favoriteItems.find(favObj => Number(favObj.id) === Number(obj.id))) {
+				await fetchDeleteFavorites(obj.id)
 			}
 			else{
 				const data: any = await fetchAddToFavorites(obj)
-					.catch(e => console.log(e.message))
 				setFavoriteItems(prev => [ ...prev, data ])
 			}
 		}
@@ -56,10 +55,9 @@ const App = (): JSX.Element => {
 		}
 	}
 
-	const onRemoveCart = (obj: ICard) => {
+	const onRemoveCart = async (obj: ICard) => {
 		try {
-			fetchDeleteCart(obj.id)
-				.catch(e => console.log(e.message))
+			await fetchDeleteCart(obj.id)
 			setCartItems(prev => prev.filter(item => item !== obj))
 		}
 		catch (error) {
@@ -82,7 +80,7 @@ const App = (): JSX.Element => {
 			/> }
 			<Header onClickCart={ () => setCartOpened(true) }/>
 			<Routes>
-				<Route path={ '*' } element={
+				<Route path={ '/' } element={
 					<Home
 						sneakers={ sneakers }
 						onHandleChange={ onHandleChange }

@@ -1,6 +1,7 @@
-import styles        from './Card.module.scss'
-import { CardProps } from './Card.Props'
-import { useState }  from 'react'
+import styles                  from './Card.module.scss'
+import { CardProps }           from './Card.Props'
+import { useEffect, useState } from 'react'
+import { clear }               from '@testing-library/user-event/dist/clear'
 
 
 const Card = ({ title, price, img, onPlus, onFavorite, isFavourite = false }: CardProps): JSX.Element => {
