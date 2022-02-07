@@ -1,22 +1,17 @@
 import styles                  from './Drawer.module.scss'
 import { DrawerProps }         from './Drawer.props'
 import { useEffect, useState } from 'react'
-import { fetchCartItems }      from '../../api'
 import { Empty }               from '../Empty'
 import { Spinner }             from '../Spinner'
 
 
-const Drawer = ({ onClose, onRemove, cartItems, setCartItems }: DrawerProps): JSX.Element => {
+const Drawer = ({ onClose, onRemove, cartItems }: DrawerProps): JSX.Element => {
 	const [ isLoading, setIsLoading ] = useState(true)
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
 			setIsLoading(false)
 		}, 1000)
-
-		fetchCartItems()
-			.then(data => setCartItems(data))
-			.catch(e => console.log(e.message))
 
 		return () => {
 			clearTimeout(timeOut)

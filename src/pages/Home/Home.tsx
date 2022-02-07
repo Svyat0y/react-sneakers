@@ -8,7 +8,7 @@ import { Card }          from '../../components/Card'
 import { Spinner }       from '../../components/Spinner'
 
 
-const Home = ({ sneakers, searchValue, onHandleChange, onAddToCart, onAddToFavorite }: HomeProps) => {
+const Home = ({ sneakers, cartItems, searchValue, onHandleChange, onAddToCart, onAddToFavorite }: HomeProps) => {
 	const [ isLoading, setIsLoading ] = useState(true)
 
 	useEffect(() => {
@@ -22,15 +22,16 @@ const Home = ({ sneakers, searchValue, onHandleChange, onAddToCart, onAddToFavor
 	}, [])
 
 	const filteredSneakers = sneakers.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-	const visibleItems = sneakers && filteredSneakers.map((item: ICard, index: number) => {
+	const visibleItems = sneakers && filteredSneakers.map((obj: ICard, index: number) => {
 		return (
 			<Card
 				key={ index }
-				title={ item.title }
-				price={ item.price }
-				img={ item.img }
-				onPlus={ () => onAddToCart(item) }
-				onFavorite={ () => onAddToFavorite(item) }/>
+				title={ obj.title }
+				price={ obj.price }
+				img={ obj.img }
+				onPlus={ () => onAddToCart(obj) }
+				onFavorite={ () => onAddToFavorite(obj) }
+				added={ cartItems.some(item => Number(item.id) === Number(obj.id)) }/>
 		)
 	})
 

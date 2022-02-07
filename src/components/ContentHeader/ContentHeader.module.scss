@@ -1,0 +1,17 @@
+.titleProduct {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 567px) {
+  .titleProduct {
+    flex-direction: column;
+    justify-content: center;
+
+    h1 {
+      margin-bottom: 10px;
+    }
+  }
+}

@@ -6,9 +6,9 @@ import { Drawer }    from './components/Drawer'
 import { Home }      from './pages/Home'
 import { Favorites } from './pages/Favorites'
 
-import { fetchSneakers, fetchAddToCart, fetchDeleteCart } from './api'
-import { fetchAddToFavorites, fetchDeleteFavorites }      from './api/api'
-import { Route, Routes }                                  from 'react-router-dom'
+import { fetchSneakers, fetchAddToCart, fetchDeleteCart, fetchCartItems } from './api'
+import { fetchAddToFavorites, fetchDeleteFavorites, fetchFavoriteItems }  from './api/api'
+import { Route, Routes }                                                  from 'react-router-dom'
 
 
 const App = (): JSX.Element => {
@@ -19,9 +19,17 @@ const App = (): JSX.Element => {
 	const [ searchValue, setInputValue ] = useState('')
 
 	useEffect(() => {
-		fetchSneakers()
-			.then(data => setSneakers(data))
-			.catch(e => console.log(e.message))
+		async function fetchAllData() {
+			const cartItems = await fetchCartItems()
+			const favoriteItems = await fetchFavoriteItems()
+			const sneakers = await fetchSneakers()
+
+			setCartItems(cartItems)
+			setFavoriteItems(favoriteItems)
+			setSneakers(sneakers)
+		}
+
+		fetchAllData()
 	}, [])
 
 	const onAddToCart = async (obj: ICard) => {
@@ -76,7 +84,6 @@ const App = (): JSX.Element => {
 				cartItems={ cartItems }
 				onRemove={ onRemoveCart }
 				onClose={ () => setCartOpened(false) }
-				setCartItems={ setCartItems }
 			/> }
 			<Header onClickCart={ () => setCartOpened(true) }/>
 			<Routes>
@@ -86,13 +93,13 @@ const App = (): JSX.Element => {
 						onHandleChange={ onHandleChange }
 						searchValue={ searchValue }
 						onAddToFavorite={ onAddToFavorite }
-						onAddToCart={ onAddToCart }/>
+						onAddToCart={ onAddToCart }
+						cartItems={ cartItems }/>
 				}/>
 				<Route path={ 'favorites/*' } element={
 					<Favorites
 						favoriteItems={ favoriteItems }
 						onAddToCart={ onAddToCart }
-						setFavoriteItems={ setFavoriteItems }
 						onAddToFavorite={ onAddToFavorite }
 					/>
 				}/>

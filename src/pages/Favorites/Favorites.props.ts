@@ -7,5 +7,4 @@ export interface FavoritesProps {
 	favoriteItems: Array<ICard>
 	onAddToCart: (obj: ICard) => void
 	onAddToFavorite: (obj: ICard) => void
-	setFavoriteItems: (data: Array<ICard>) => void
 }

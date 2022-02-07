@@ -11,12 +11,12 @@ export const fetchSneakers = async (): Promise<Array<ICard>> => {
 	return data
 }
 
-export const fetchCartItems = async () => {
+export const fetchCartItems = async (): Promise<Array<ICard>> => {
 	const { data }: { data: Array<ICard> } = await instance.get<Array<ICard>>('cart')
 	return data
 }
 
-export const fetchFavoriteItems = async () => {
+export const fetchFavoriteItems = async (): Promise<Array<ICard>> => {
 	const { data }: { data: Array<ICard> } = await instance.get<Array<ICard>>('favorites')
 	return data
 }

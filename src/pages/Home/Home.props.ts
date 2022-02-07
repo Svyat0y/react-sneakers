@@ -6,6 +6,7 @@ export interface HomeProps {
 	searchValue: string
 	onHandleChange: (e: ChangeEvent<HTMLInputElement>) => void
 	sneakers: Array<ICard>
+	cartItems: Array<ICard>
 	onAddToCart: (obj: ICard) => void
 	onAddToFavorite: (obj: ICard) => void
 }

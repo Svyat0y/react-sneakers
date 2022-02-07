@@ -1,11 +1,10 @@
-import styles                  from './Card.module.scss'
-import { CardProps }           from './Card.Props'
-import { useEffect, useState } from 'react'
-import { clear }               from '@testing-library/user-event/dist/clear'
+import styles        from './Card.module.scss'
+import { CardProps } from './Card.Props'
+import { useState }  from 'react'
 
 
-const Card = ({ title, price, img, onPlus, onFavorite, isFavourite = false }: CardProps): JSX.Element => {
-	const [ isAdded, setIsAdded ] = useState(false)
+const Card = ({ title, price, img, onPlus, onFavorite, isFavourite = false, added = false }: CardProps): JSX.Element => {
+	const [ isAdded, setIsAdded ] = useState(added)
 	const [ isFavorite, setIsFavorite ] = useState(isFavourite)
 
 	const onClickPlus = () => {
@@ -29,6 +28,7 @@ const Card = ({ title, price, img, onPlus, onFavorite, isFavourite = false }: Ca
 				alt='Unliked'
 			/>
 			<img
+				className={ styles.itemImg }
 				width={ 133 }
 				height={ 112 }
 				src={ img }

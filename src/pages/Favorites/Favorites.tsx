@@ -8,11 +8,9 @@ import { Card }          from '../../components/Card'
 import { Empty }         from '../../components/Empty'
 import { Spinner }       from '../../components/Spinner'
 
-import { fetchFavoriteItems } from '../../api/api'
-
 
 const Favorites = (
-	{ searchValue, onHandleChange, favoriteItems, onAddToCart, onAddToFavorite, setFavoriteItems }: FavoritesProps): JSX.Element => {
+	{ searchValue, onHandleChange, favoriteItems, onAddToCart, onAddToFavorite }: FavoritesProps): JSX.Element => {
 
 	const [ isLoading, setIsLoading ] = useState(true)
 
@@ -20,9 +18,6 @@ const Favorites = (
 		const timeout = setTimeout(() => {
 			setIsLoading(false)
 		}, 1000)
-
-		fetchFavoriteItems()
-			.then(resp => setFavoriteItems(resp))
 
 		return () => {
 			clearTimeout(timeout)
@@ -38,7 +33,8 @@ const Favorites = (
 				img={ item.img }
 				onPlus={ () => onAddToCart(item) }
 				onFavorite={ () => onAddToFavorite(item) }
-				isFavourite={ true }/>
+				isFavourite={ true }
+			/>
 		)
 	})
 
