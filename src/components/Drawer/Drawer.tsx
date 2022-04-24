@@ -1,8 +1,9 @@
 import styles                  from './Drawer.module.scss'
 import { DrawerProps }         from './Drawer.props'
 import { useEffect, useState } from 'react'
-import { Empty }               from '../Empty'
-import { Spinner }             from '../Spinner'
+
+import { Empty }   from '../Empty'
+import { Spinner } from '../Spinner'
 
 
 const Drawer = ({ onClose, onRemove, cartItems }: DrawerProps): JSX.Element => {

@@ -1,6 +1,12 @@
+import styles from './Spinner.module.scss'
+
+
 const Spinner = () => {
 	return (
-		<span>Loading..</span>
+		<div className={ styles.wrapper }>
+			loading..
+		</div>
+
 	)
 }
 

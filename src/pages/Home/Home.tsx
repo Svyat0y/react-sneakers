@@ -1,9 +1,9 @@
 import styles                  from './Home.module.scss'
+import { ICard }               from '../../interfaces'
 import { HomeProps }           from './Home.props'
 import { useEffect, useState } from 'react'
 
 import { ContentHeader } from '../../components/ContentHeader'
-import { ICard }         from '../../interfaces'
 import { Card }          from '../../components/Card'
 import { Spinner }       from '../../components/Spinner'
 

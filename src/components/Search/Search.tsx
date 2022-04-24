@@ -3,6 +3,7 @@ import { SearchProps } from './Search.props'
 
 
 const Search = ({ onHandleChange, searchValue }: SearchProps) => {
+
 	return (
 		<div className={ styles.searchBlock }>
 			<img src="/img/search.svg" alt="search"/>
