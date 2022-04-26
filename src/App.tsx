@@ -1,5 +1,6 @@
 import { ICard }                            from './interfaces'
 import { ChangeEvent, useEffect, useState } from 'react'
+import { Route, Routes }                    from 'react-router-dom'
 
 import { Header }    from './components/Header'
 import { Drawer }    from './components/Drawer'
@@ -8,7 +9,6 @@ import { Favorites } from './pages/Favorites'
 
 import { fetchSneakers, fetchAddToCart, fetchDeleteCart, fetchCartItems } from './api'
 import { fetchAddToFavorites, fetchDeleteFavorites, fetchFavoriteItems }  from './api/api'
-import { Route, Routes }                                                  from 'react-router-dom'
 
 
 const App = (): JSX.Element => {
@@ -17,6 +17,9 @@ const App = (): JSX.Element => {
 	const [ cartItems, setCartItems ] = useState<Array<ICard>>([])
 	const [ favoriteItems, setFavoriteItems ] = useState<Array<ICard>>([])
 	const [ searchValue, setInputValue ] = useState('')
+
+
+	console.log(sneakers)
 
 	useEffect(() => {
 		async function fetchAllData() {
@@ -78,14 +81,24 @@ const App = (): JSX.Element => {
 		setInputValue(value)
 	}
 
+	const openCart = () => {
+		setCartOpened(true)
+		document.body.style.overflow = 'hidden'
+	}
+
+	const closeCart = () => {
+		setCartOpened(false)
+		document.body.style.overflow = 'unset'
+	}
+
 	return (
-		<div className="wrapper clear">
+		<div className={ `${ 'wrapper clear' }` }>
 			{ cartOpened && <Drawer
 				cartItems={ cartItems }
 				onRemove={ onRemoveCart }
-				onClose={ () => setCartOpened(false) }
+				onClose={ closeCart }
 			/> }
-			<Header onClickCart={ () => setCartOpened(true) }/>
+			<Header onClickCart={ openCart }/>
 			<Routes>
 				<Route path={ '/' } element={
 					<Home

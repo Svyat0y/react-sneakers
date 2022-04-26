@@ -1,7 +1,6 @@
 import styles         from './Empty.module.scss'
 import { EmptyProps } from './Empty.props'
-
-import { Link } from 'react-router-dom'
+import { Link }       from 'react-router-dom'
 
 
 const Empty = ({ image, size, onClose }: EmptyProps) => {
