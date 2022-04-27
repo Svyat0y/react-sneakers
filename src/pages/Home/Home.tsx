@@ -8,18 +8,12 @@ import { Card }          from '../../components/Card'
 import { Spinner }       from '../../components/Spinner'
 
 
-const Home = ({ sneakers, cartItems, searchValue, onHandleChange, onAddToCart, onAddToFavorite }: HomeProps) => {
+const Home = ({ sneakers, cartItems, favoriteItems, searchValue, onHandleChange, onAddToCart, onAddToFavorite }: HomeProps) => {
 	const [ isLoading, setIsLoading ] = useState(true)
 
 	useEffect(() => {
-		const timeOut = setTimeout(() => {
-			setIsLoading(false)
-		}, 1000)
-
-		return () => {
-			clearTimeout(timeOut)
-		}
-	}, [])
+		sneakers.length > 0 && setIsLoading(false)
+	}, [ sneakers ])
 
 	const filteredSneakers = sneakers.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
 	const visibleItems = sneakers && filteredSneakers.map((obj: ICard, index: number) => {
@@ -31,7 +25,9 @@ const Home = ({ sneakers, cartItems, searchValue, onHandleChange, onAddToCart, o
 				img={ obj.img }
 				onPlus={ () => onAddToCart(obj) }
 				onFavorite={ () => onAddToFavorite(obj) }
-				added={ cartItems.some(item => Number(item.id) === Number(obj.id)) }/>
+				added={ cartItems.some(item => Number(item.id) === Number(obj.id)) }
+				favorited={ favoriteItems.some(item => Number(item.id) === Number(obj.id)) }
+			/>
 		)
 	})
 

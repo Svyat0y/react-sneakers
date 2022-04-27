@@ -12,17 +12,11 @@ import { Spinner }       from '../../components/Spinner'
 const Favorites = (
 	{ searchValue, onHandleChange, favoriteItems, onAddToCart, onAddToFavorite }: FavoritesProps): JSX.Element => {
 
-	const [ isLoading, setIsLoading ] = useState(true)
+	const [ isLoading, setIsLoading ] = useState(false)
 
 	useEffect(() => {
-		const timeout = setTimeout(() => {
-			setIsLoading(false)
-		}, 1000)
-
-		return () => {
-			clearTimeout(timeout)
-		}
-	}, [])
+		favoriteItems.length > 0 && setIsLoading(false)
+	}, [ favoriteItems ])
 
 	const items = favoriteItems && favoriteItems.map((item: ICard, index: number) => {
 		return (
@@ -33,7 +27,7 @@ const Favorites = (
 				img={ item.img }
 				onPlus={ () => onAddToCart(item) }
 				onFavorite={ () => onAddToFavorite(item) }
-				isFavourite={ true }
+				favorited={ true }
 			/>
 		)
 	})
@@ -44,7 +38,7 @@ const Favorites = (
 			{
 				!isLoading
 					? <div className="cardWrapper">
-						{ favoriteItems && favoriteItems.length > 0
+						{ favoriteItems && favoriteItems && favoriteItems.length > 0
 							? items
 							: <Empty size={ 70 } image='/img/smile_favourite.svg'/>
 						}

@@ -18,9 +18,6 @@ const App = (): JSX.Element => {
 	const [ favoriteItems, setFavoriteItems ] = useState<Array<ICard>>([])
 	const [ searchValue, setInputValue ] = useState('')
 
-
-	console.log(sneakers)
-
 	useEffect(() => {
 		async function fetchAllData() {
 			const cartItems = await fetchCartItems()
@@ -38,8 +35,8 @@ const App = (): JSX.Element => {
 	const onAddToCart = async (obj: ICard) => {
 		try {
 			if (cartItems.find(item => Number(item.id) === Number(obj.id))) {
-				setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
 				await fetchDeleteCart(obj.id)
+				setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
 			}
 			else{
 				await fetchAddToCart(obj)
@@ -53,8 +50,9 @@ const App = (): JSX.Element => {
 
 	const onAddToFavorite = async (obj: ICard) => {
 		try {
-			if (favoriteItems.find(favObj => Number(favObj.id) === Number(obj.id))) {
+			if (favoriteItems.find(item => Number(item.id) === Number(obj.id))) {
 				await fetchDeleteFavorites(obj.id)
+				setFavoriteItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
 			}
 			else{
 				const data: any = await fetchAddToFavorites(obj)
@@ -92,7 +90,7 @@ const App = (): JSX.Element => {
 	}
 
 	return (
-		<div className={ `${ 'wrapper clear' }` }>
+		<div className='wrapper clear'>
 			{ cartOpened && <Drawer
 				cartItems={ cartItems }
 				onRemove={ onRemoveCart }
@@ -107,7 +105,9 @@ const App = (): JSX.Element => {
 						searchValue={ searchValue }
 						onAddToFavorite={ onAddToFavorite }
 						onAddToCart={ onAddToCart }
-						cartItems={ cartItems }/>
+						cartItems={ cartItems }
+						favoriteItems={ favoriteItems }
+					/>
 				}/>
 				<Route path={ 'favorites/*' } element={
 					<Favorites
