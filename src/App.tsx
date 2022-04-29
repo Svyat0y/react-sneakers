@@ -11,6 +11,7 @@ import { fetchSneakers, fetchAddToCart, fetchDeleteCart, fetchCartItems } from '
 import { fetchAddToFavorites, fetchDeleteFavorites, fetchFavoriteItems }  from './api/api'
 
 import { AppContext } from './context'
+import { AppCtx }     from './context/context'
 
 
 const App = (): JSX.Element => {
@@ -91,8 +92,14 @@ const App = (): JSX.Element => {
 		document.body.style.overflow = 'unset'
 	}
 
+	const hasCardAdded = (id: number) => {
+		return cartItems.some(item => Number(item.id) === Number(id))
+	}
+
+	const context: AppCtx = { sneakers, favoriteItems, cartItems, hasCardAdded, onAddToFavorite, onAddToCart }
+
 	return (
-		<AppContext.Provider value={ { sneakers, favoriteItems, cartItems } }>
+		<AppContext.Provider value={ context }>
 			<div className='wrapper clear'>
 				{ cartOpened && <Drawer
 					cartItems={ cartItems }
@@ -119,7 +126,6 @@ const App = (): JSX.Element => {
 						/>
 					}/>
 				</Routes>
-
 			</div>
 		</AppContext.Provider>
 	)

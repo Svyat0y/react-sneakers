@@ -24,6 +24,7 @@ const Favorites = (
 	const items = favoriteItems && favoriteItems.map((item: ICard, index: number) => {
 		return (
 			<Card
+				id={ item.id }
 				key={ index }
 				title={ item.title }
 				price={ item.price }
@@ -38,11 +39,6 @@ const Favorites = (
 	return (
 		<div className={ styles.content }>
 			<ContentHeader title={ 'Мои закладки' } searchValue={ searchValue } onHandleChange={ onHandleChange }/>
-
-			{/*			{ isLoading && <Spinner/> }
-			{ favoriteItems.length >= 0 && items }
-			{ !favoriteItems.length && isLoading ? <Empty size={ 70 } image='/img/smile_favourite.svg'/> : <></> }*/ }
-
 			{
 				isLoading
 					? <Spinner/>

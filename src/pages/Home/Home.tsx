@@ -19,6 +19,7 @@ const Home = ({ sneakers, cartItems, favoriteItems, searchValue, onHandleChange,
 	const visibleItems = sneakers && filteredSneakers.map((obj: ICard, index: number) => {
 		return (
 			<Card
+				id={ obj.id }
 				key={ index }
 				title={ obj.title }
 				price={ obj.price }

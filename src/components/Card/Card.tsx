@@ -1,15 +1,18 @@
-import styles        from './Card.module.scss'
-import { CardProps } from './Card.Props'
-import { useState }  from 'react'
+import styles                   from './Card.module.scss'
+import { CardProps }            from './Card.Props'
+import { useContext, useState } from 'react'
+import { AppContext }           from '../../context'
 
 
-const Card = ({ title, price, img, onPlus, onFavorite, favorited, added = false }: CardProps): JSX.Element => {
-	const [ isAdded, setIsAdded ] = useState(added)
+const Card = ({ id, title, price, img, onPlus, onFavorite, favorited = false }: CardProps): JSX.Element => {
+	// const [ isAdded, setIsAdded ] = useState(false)
 	const [ isFavorite, setIsFavorite ] = useState(favorited)
+
+	const { hasCardAdded } = useContext(AppContext)
 
 	const onClickPlus = () => {
 		onPlus()
-		setIsAdded(!isAdded)
+		// setIsAdded(!isAdded)
 	}
 
 	const onClickFavorite = () => {
@@ -45,7 +48,7 @@ const Card = ({ title, price, img, onPlus, onFavorite, favorited, added = false 
 					className='cu-p'
 					width={ 32 }
 					height={ 32 }
-					src={ isAdded ? '/img/btn_checked.svg' : '/img/btn_plus.svg' }
+					src={ hasCardAdded(id) ? '/img/btn_checked.svg' : '/img/btn_plus.svg' }
 					alt='btn_plus'
 				/>
 			</div>
