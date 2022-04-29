@@ -10,12 +10,14 @@ import { Favorites } from './pages/Favorites'
 import { fetchSneakers, fetchAddToCart, fetchDeleteCart, fetchCartItems } from './api'
 import { fetchAddToFavorites, fetchDeleteFavorites, fetchFavoriteItems }  from './api/api'
 
+import { AppContext } from './context'
+
 
 const App = (): JSX.Element => {
 	const [ sneakers, setSneakers ] = useState<Array<ICard>>([])
-	const [ cartOpened, setCartOpened ] = useState(false)
-	const [ cartItems, setCartItems ] = useState<Array<ICard>>([])
 	const [ favoriteItems, setFavoriteItems ] = useState<Array<ICard>>([])
+	const [ cartItems, setCartItems ] = useState<Array<ICard>>([])
+	const [ cartOpened, setCartOpened ] = useState(false)
 	const [ searchValue, setInputValue ] = useState('')
 
 	useEffect(() => {
@@ -90,35 +92,36 @@ const App = (): JSX.Element => {
 	}
 
 	return (
-		<div className='wrapper clear'>
-			{ cartOpened && <Drawer
-				cartItems={ cartItems }
-				onRemove={ onRemoveCart }
-				onClose={ closeCart }
-			/> }
-			<Header onClickCart={ openCart }/>
-			<Routes>
-				<Route path={ '/' } element={
-					<Home
-						sneakers={ sneakers }
-						onHandleChange={ onHandleChange }
-						searchValue={ searchValue }
-						onAddToFavorite={ onAddToFavorite }
-						onAddToCart={ onAddToCart }
-						cartItems={ cartItems }
-						favoriteItems={ favoriteItems }
-					/>
-				}/>
-				<Route path={ 'favorites/*' } element={
-					<Favorites
-						favoriteItems={ favoriteItems }
-						onAddToCart={ onAddToCart }
-						onAddToFavorite={ onAddToFavorite }
-					/>
-				}/>
-			</Routes>
+		<AppContext.Provider value={ { sneakers, favoriteItems, cartItems } }>
+			<div className='wrapper clear'>
+				{ cartOpened && <Drawer
+					cartItems={ cartItems }
+					onRemove={ onRemoveCart }
+					onClose={ closeCart }
+				/> }
+				<Header onClickCart={ openCart }/>
+				<Routes>
+					<Route path={ '/' } element={
+						<Home
+							sneakers={ sneakers }
+							onHandleChange={ onHandleChange }
+							searchValue={ searchValue }
+							onAddToFavorite={ onAddToFavorite }
+							onAddToCart={ onAddToCart }
+							cartItems={ cartItems }
+							favoriteItems={ favoriteItems }
+						/>
+					}/>
+					<Route path={ 'favorites/*' } element={
+						<Favorites
+							onAddToCart={ onAddToCart }
+							onAddToFavorite={ onAddToFavorite }
+						/>
+					}/>
+				</Routes>
 
-		</div>
+			</div>
+		</AppContext.Provider>
 	)
 }
 

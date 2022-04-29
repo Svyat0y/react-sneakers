@@ -12,7 +12,7 @@ const Home = ({ sneakers, cartItems, favoriteItems, searchValue, onHandleChange,
 	const [ isLoading, setIsLoading ] = useState(true)
 
 	useEffect(() => {
-		sneakers.length > 0 && setIsLoading(false)
+		sneakers.some((item) => item) && setIsLoading(false)
 	}, [ sneakers ])
 
 	const filteredSneakers = sneakers.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()))
