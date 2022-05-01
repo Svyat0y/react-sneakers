@@ -1,13 +1,15 @@
-import styles                  from './Drawer.module.scss'
-import { DrawerProps }         from './Drawer.props'
-import { useEffect, useState } from 'react'
+import styles                              from './Drawer.module.scss'
+import { useContext, useEffect, useState } from 'react'
 
 import { Empty }   from '../Empty'
 import { Spinner } from '../Spinner'
 
+import { AppContext } from '../../context'
 
-const Drawer = ({ onClose, onRemove, cartItems }: DrawerProps): JSX.Element => {
+
+const Drawer = (): JSX.Element => {
 	const [ isLoading, setIsLoading ] = useState(true)
+	const { cartItems, closeCart, onRemoveCart } = useContext(AppContext)
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
@@ -25,7 +27,7 @@ const Drawer = ({ onClose, onRemove, cartItems }: DrawerProps): JSX.Element => {
 				<h2>
 					Корзина
 					<img
-						onClick={ onClose }
+						onClick={ closeCart }
 						width={ 32 }
 						height={ 32 }
 						className={ styles.removeBtn }
@@ -47,13 +49,13 @@ const Drawer = ({ onClose, onRemove, cartItems }: DrawerProps): JSX.Element => {
 											<b>{ item.price } руб.</b>
 										</div>
 										<img
-											onClick={ () => onRemove(item) }
+											onClick={ () => onRemoveCart(item) }
 											width={ 32 } height={ 32 }
 											className={ styles.removeBtn }
 											src='/img/remove_btn.svg'
 											alt='close'/>
 									</div>)
-									: <Empty onClose={ onClose } size={ 120 } image='/img/empty_cart.svg'/>
+									: <Empty onClose={ closeCart } size={ 120 } image='/img/empty_cart.svg'/>
 								}
 							</>
 							: <Spinner/>

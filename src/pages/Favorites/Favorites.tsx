@@ -1,5 +1,4 @@
 import styles                              from './Favorites.module.scss'
-import { FavoritesProps }                  from './Favorites.props'
 import { ICard }                           from '../../interfaces'
 import { useContext, useEffect, useState } from 'react'
 
@@ -7,11 +6,11 @@ import { ContentHeader } from '../../components/ContentHeader'
 import { Card }          from '../../components/Card'
 import { Empty }         from '../../components/Empty'
 import { Spinner }       from '../../components/Spinner'
-import { AppContext }    from '../../context'
+
+import { AppContext } from '../../context'
 
 
-const Favorites = (
-	{ searchValue, onHandleChange, onAddToCart, onAddToFavorite }: FavoritesProps): JSX.Element => {
+const Favorites = (): JSX.Element => {
 
 	const [ isLoading, setIsLoading ] = useState(true)
 	const { favoriteItems } = useContext(AppContext)
@@ -24,21 +23,16 @@ const Favorites = (
 	const items = favoriteItems && favoriteItems.map((item: ICard, index: number) => {
 		return (
 			<Card
-				id={ item.id }
 				key={ index }
-				title={ item.title }
-				price={ item.price }
-				img={ item.img }
-				onPlus={ () => onAddToCart(item) }
-				onFavorite={ () => onAddToFavorite(item) }
 				favorited={ true }
+				{ ...item }
 			/>
 		)
 	})
 
 	return (
 		<div className={ styles.content }>
-			<ContentHeader title={ 'Мои закладки' } searchValue={ searchValue } onHandleChange={ onHandleChange }/>
+			<ContentHeader title={ 'Мои закладки' }/>
 			{
 				isLoading
 					? <Spinner/>

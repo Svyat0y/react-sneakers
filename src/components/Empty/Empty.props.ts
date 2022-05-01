@@ -1,5 +1,5 @@
 export interface EmptyProps {
-	image?: string
+	image: string
 	size: number
 	onClose?: () => void
 }

@@ -3,8 +3,7 @@ import { EmptyProps } from './Empty.props'
 import { Link }       from 'react-router-dom'
 
 
-const Empty = ({ image, size, onClose }: EmptyProps) => {
-
+const Empty = ({ image, size, onClose }: EmptyProps): JSX.Element => {
 
 	return (
 		<div className={ styles.emptyWrapped }>

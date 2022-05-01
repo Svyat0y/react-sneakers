@@ -1,8 +1,11 @@
-import styles          from './Search.module.scss'
-import { SearchProps } from './Search.props'
+import styles         from './Search.module.scss'
+import { useContext } from 'react'
+
+import { AppContext } from '../../context'
 
 
-const Search = ({ onHandleChange, searchValue }: SearchProps) => {
+const Search = (): JSX.Element => {
+	const { onHandleChange, searchValue } = useContext(AppContext)
 
 	return (
 		<div className={ styles.searchBlock }>

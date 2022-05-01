@@ -1,14 +1,18 @@
-import styles          from './Header.module.scss'
-import { HeaderProps } from './Header.props'
-import { Link }        from 'react-router-dom'
+import styles         from './Header.module.scss'
+import { Link }       from 'react-router-dom'
+import { useContext } from 'react'
+
+import { AppContext } from '../../context'
 
 
-const Header = ({ onClickCart }: HeaderProps): JSX.Element => {
+const Header = (): JSX.Element => {
+	const { openCart } = useContext(AppContext)
+
 	return (
 		<header className={ styles.header }>
 			<Link to={ '/' }>
 				<div className={ styles.headerLeft }>
-					<img width={ 40 } height={ 40 } src='./img/logo.svg' alt='logo'/>
+					<img width={ 40 } height={ 40 } src='/img/logo.svg' alt='logo'/>
 					<div>
 						<h3>React sneakers</h3>
 						<p>Магазин лучших кроссовок</p>
@@ -16,7 +20,7 @@ const Header = ({ onClickCart }: HeaderProps): JSX.Element => {
 				</div>
 			</Link>
 			<ul className={ styles.headerRight }>
-				<li onClick={ onClickCart }>
+				<li onClick={ openCart }>
 					<img width={ 20 } height={ 20 } src='/img/cart.svg' alt='cart'/>
 					<span>1205 руб.</span>
 				</li>

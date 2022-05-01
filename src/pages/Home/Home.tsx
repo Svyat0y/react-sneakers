@@ -1,15 +1,17 @@
-import styles                  from './Home.module.scss'
-import { ICard }               from '../../interfaces'
-import { HomeProps }           from './Home.props'
-import { useEffect, useState } from 'react'
+import styles                              from './Home.module.scss'
+import { ICard }                           from '../../interfaces'
+import { useContext, useEffect, useState } from 'react'
 
 import { ContentHeader } from '../../components/ContentHeader'
 import { Card }          from '../../components/Card'
 import { Spinner }       from '../../components/Spinner'
 
+import { AppContext } from '../../context'
 
-const Home = ({ sneakers, cartItems, favoriteItems, searchValue, onHandleChange, onAddToCart, onAddToFavorite }: HomeProps) => {
+
+const Home = (): JSX.Element => {
 	const [ isLoading, setIsLoading ] = useState(true)
+	const { sneakers, searchValue, cartItems, favoriteItems } = useContext(AppContext)
 
 	useEffect(() => {
 		sneakers.some((item) => item) && setIsLoading(false)
@@ -19,22 +21,17 @@ const Home = ({ sneakers, cartItems, favoriteItems, searchValue, onHandleChange,
 	const visibleItems = sneakers && filteredSneakers.map((obj: ICard, index: number) => {
 		return (
 			<Card
-				id={ obj.id }
 				key={ index }
-				title={ obj.title }
-				price={ obj.price }
-				img={ obj.img }
-				onPlus={ () => onAddToCart(obj) }
-				onFavorite={ () => onAddToFavorite(obj) }
 				added={ cartItems.some(item => Number(item.id) === Number(obj.id)) }
 				favorited={ favoriteItems.some(item => Number(item.id) === Number(obj.id)) }
+				{ ...obj }
 			/>
 		)
 	})
 
 	return (
 		<div className={ styles.content }>
-			<ContentHeader title={ 'Все кроссовки' } searchValue={ searchValue } onHandleChange={ onHandleChange }/>
+			<ContentHeader title={ 'Все кроссовки' }/>
 			<div className="cardWrapper">
 				<>
 					{ !isLoading

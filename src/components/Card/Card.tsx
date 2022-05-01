@@ -4,19 +4,18 @@ import { useContext, useState } from 'react'
 import { AppContext }           from '../../context'
 
 
-const Card = ({ id, title, price, img, onPlus, onFavorite, favorited = false }: CardProps): JSX.Element => {
-	// const [ isAdded, setIsAdded ] = useState(false)
+const Card = ({ id, title, price, img, favorited = false }: CardProps): JSX.Element => {
 	const [ isFavorite, setIsFavorite ] = useState(favorited)
-
-	const { hasCardAdded } = useContext(AppContext)
+	const { hasCardAdded, onAddToCart, onAddToFavorite } = useContext(AppContext)
 
 	const onClickPlus = () => {
-		onPlus()
-		// setIsAdded(!isAdded)
+		const obj = { id, title, price, img }
+		onAddToCart(obj)
 	}
 
 	const onClickFavorite = () => {
-		onFavorite()
+		const obj = { id, title, price, img }
+		onAddToFavorite(obj)
 		setIsFavorite(!isFavorite)
 	}
 

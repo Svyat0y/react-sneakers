@@ -1,22 +1,31 @@
-import { createContext } from 'react'
-import { ICard }         from '../interfaces'
+import { ChangeEvent, createContext } from 'react'
+import { ICard }                      from '../interfaces'
 
 
-export interface AppCtx {
+export interface IAppCtx {
 	sneakers: ICard[]
 	favoriteItems: ICard[]
 	cartItems: ICard[]
 	hasCardAdded: (id: number) => boolean
 	onAddToCart: (obj: ICard) => void
 	onAddToFavorite: (obj: ICard) => void
-
+	closeCart: () => void
+	onRemoveCart: (obj: ICard) => void
+	onHandleChange: (e: ChangeEvent<HTMLInputElement>) => void
+	openCart: () => void
+	searchValue: string
 }
 
-export const AppContext = createContext<AppCtx>({
+export const AppContext = createContext<IAppCtx>({
 	sneakers: [],
 	favoriteItems: [],
 	cartItems: [],
 	hasCardAdded: () => false,
 	onAddToFavorite: () => undefined,
-	onAddToCart: () => undefined
+	onAddToCart: () => undefined,
+	closeCart: () => undefined,
+	onRemoveCart: () => undefined,
+	onHandleChange: () => undefined,
+	searchValue: '',
+	openCart: () => undefined
 })
