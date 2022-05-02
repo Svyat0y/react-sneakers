@@ -1,7 +1,7 @@
 import styles                              from './Drawer.module.scss'
 import { useContext, useEffect, useState } from 'react'
 
-import { Empty }   from '../Empty'
+import { Info }    from '../Info'
 import { Spinner } from '../Spinner'
 
 import { AppContext } from '../../context'
@@ -55,7 +55,13 @@ const Drawer = (): JSX.Element => {
 											src='/img/remove_btn.svg'
 											alt='close'/>
 									</div>)
-									: <Empty onClose={ closeCart } size={ 120 } image='/img/empty_cart.svg'/>
+									: <Info
+										title={ 'Корзина пустая' }
+										description={ 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.' }
+										onClose={ closeCart }
+										size={ 120 }
+										image='/img/empty_cart.svg'
+									/>
 								}
 							</>
 							: <Spinner/>

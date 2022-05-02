@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react'
 
 import { ContentHeader } from '../../components/ContentHeader'
 import { Card }          from '../../components/Card'
-import { Empty }         from '../../components/Empty'
+import { Info }          from '../../components/Info'
 import { Spinner }       from '../../components/Spinner'
 
 import { AppContext } from '../../context'
@@ -39,7 +39,12 @@ const Favorites = (): JSX.Element => {
 					: <div className="cardWrapper">
 						{ favoriteItems && favoriteItems.length > 0
 							? items
-							: <Empty size={ 70 } image='/img/smile_favourite.svg'/>
+							: <Info
+								title='У вас нет заказов'
+								description='Вы нищеброд? Оформите хотя бы один заказ.'
+								size={ 70 }
+								image='/img/smile_favourite.svg'
+							/>
 						}
 					</div>
 			}

@@ -11,8 +11,8 @@ export const fetchSneakers = async (): Promise<Array<ICard>> => {
 		const { data }: { data: Array<ICard> } = await instance.get<Array<ICard>>('sneakers')
 		return data
 	}
-	catch (e) {
-		console.log(e, 'not found')
+	catch (e: unknown) {
+		console.log(e + ', empty array in this endpoint')
 		return []
 	}
 }
@@ -22,8 +22,8 @@ export const fetchCartItems = async (): Promise<Array<ICard>> => {
 		const { data }: { data: Array<ICard> } = await instance.get<Array<ICard>>('cart')
 		return data
 	}
-	catch (e) {
-		console.log(e, 'empty array in this endpoint')
+	catch (e: unknown) {
+		console.log(e + ', empty array in this endpoint')
 		return []
 	}
 }
@@ -33,8 +33,8 @@ export const fetchFavoriteItems = async (): Promise<Array<ICard>> => {
 		const { data }: { data: Array<ICard> } = await instance.get<Array<ICard>>('favorites')
 		return data
 	}
-	catch (e) {
-		console.log(e, 'empty array in this endpoint')
+	catch (e: unknown) {
+		console.log(e + ', empty array in this endpoint')
 		return []
 	}
 }
