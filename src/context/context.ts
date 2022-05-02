@@ -3,9 +3,9 @@ import { ICard }                      from '../interfaces'
 
 
 export interface IAppCtx {
-	sneakers: ICard[]
-	favoriteItems: ICard[]
-	cartItems: ICard[]
+	sneakers: ICard[] | []
+	favoriteItems: ICard[] | []
+	cartItems: ICard[] | []
 	hasCardAdded: (id: number) => boolean
 	onAddToCart: (obj: ICard) => void
 	onAddToFavorite: (obj: ICard) => void
