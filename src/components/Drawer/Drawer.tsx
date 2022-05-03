@@ -12,6 +12,7 @@ const Drawer = (): JSX.Element => {
 	const [ isLoading, setIsLoading ] = useState<boolean>(true)
 	const [ isOrderComplete, setIsOrderComplete ] = useState<boolean>(false)
 	const [ orderId, setOrderId ] = useState<null | number | undefined>(null)
+	const [ disabledBtn, setDisabledBtn ] = useState(false)
 	const { cartItems, closeCart, onRemoveCart, setCartItems } = useContext(AppContext)
 
 	useEffect(() => {
@@ -25,12 +26,15 @@ const Drawer = (): JSX.Element => {
 	}, [])
 
 	const onOrder = async () => {
+		setDisabledBtn(true)
 		const data = await fetchSendOrder({ items: cartItems })
-		setOrderId(data)
-		setIsOrderComplete(true)
-		setCartItems([])
+		if (data) {
+			setOrderId(data)
+			setIsOrderComplete(true)
+			setCartItems([])
+		}
+		setDisabledBtn(false)
 	}
-
 	return (
 		<div className={ styles.overlay }>
 			<div className={ styles.drawer }>
@@ -103,7 +107,7 @@ const Drawer = (): JSX.Element => {
 												<b>1074 руб.</b>
 											</li>
 										</ul>
-										<button onClick={ onOrder } className={ `${ styles.greenButton } greenButton` }>
+										<button disabled={ disabledBtn } onClick={ onOrder } className={ `${ styles.greenButton } greenButton` }>
 											Оформить заказ
 											<img src='/img/arrow.svg' alt='orderArrow'/>
 										</button>
