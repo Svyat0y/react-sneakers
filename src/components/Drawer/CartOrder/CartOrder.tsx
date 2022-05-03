@@ -1,8 +1,14 @@
 import styles         from './CardOrder.module.scss'
 import { ICartOrder } from './CardOrder.props'
+import { useContext } from 'react'
+
+import { AppContext } from '../../../context'
 
 
 const CartOrder = ({ cartItems, disabledBtn, onOrder }: ICartOrder): JSX.Element => {
+	const { totalPrice } = useContext(AppContext)
+	const tax: number = totalPrice * 0.05
+
 	return (
 		<>
 			{
@@ -12,12 +18,12 @@ const CartOrder = ({ cartItems, disabledBtn, onOrder }: ICartOrder): JSX.Element
 						<li className='d-flex'>
 							<span>Итого:</span>
 							<div></div>
-							<b>21 498 руб.</b>
+							<b>{ totalPrice }</b>
 						</li>
 						<li className='d-flex'>
 							<span>Налог 5%</span>
 							<div></div>
-							<b>1074 руб.</b>
+							<b>{ tax } руб.</b>
 						</li>
 					</ul>
 					<button disabled={ disabledBtn } onClick={ onOrder } className={ `${ styles.greenButton } greenButton` }>

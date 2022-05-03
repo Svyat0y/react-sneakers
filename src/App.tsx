@@ -21,6 +21,8 @@ const App = (): JSX.Element => {
 	const [ cartOpened, setCartOpened ] = useState(false)
 	const [ searchValue, setInputValue ] = useState('')
 
+	const totalPrice = cartItems.reduce((a, b) => a + b.price, 0)
+
 	useEffect(() => {
 		async function fetchAllData() {
 			const cartItems = await fetchCartItems()
@@ -93,7 +95,8 @@ const App = (): JSX.Element => {
 		onRemoveCart,
 		onHandleChange,
 		openCart,
-		setCartItems
+		setCartItems,
+		totalPrice
 	}
 
 	return (

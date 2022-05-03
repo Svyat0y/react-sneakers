@@ -14,7 +14,8 @@ export interface IAppCtx {
 	onHandleChange: (e: ChangeEvent<HTMLInputElement>) => void
 	openCart: () => void
 	searchValue: string
-	setCartItems: (obj: Array<ICard>) => void
+	setCartItems: (obj: Array<ICard>) => void,
+	totalPrice: number
 }
 
 export const AppContext = createContext<IAppCtx>({
@@ -29,5 +30,6 @@ export const AppContext = createContext<IAppCtx>({
 	onHandleChange: () => undefined,
 	searchValue: '',
 	openCart: () => undefined,
-	setCartItems: () => undefined
+	setCartItems: () => undefined,
+	totalPrice: 0
 })

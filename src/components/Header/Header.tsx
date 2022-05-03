@@ -6,7 +6,7 @@ import { AppContext } from '../../context'
 
 
 const Header = (): JSX.Element => {
-	const { openCart } = useContext(AppContext)
+	const { openCart, totalPrice } = useContext(AppContext)
 
 	return (
 		<header className={ styles.header }>
@@ -22,7 +22,7 @@ const Header = (): JSX.Element => {
 			<ul className={ styles.headerRight }>
 				<li onClick={ openCart }>
 					<img width={ 20 } height={ 20 } src='/img/cart.svg' alt='cart'/>
-					<span>1205 руб.</span>
+					<span>{ totalPrice } руб.</span>
 				</li>
 				<li>
 					<Link to={ '/favorites' }>
