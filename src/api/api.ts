@@ -98,7 +98,7 @@ export const fetchSendOrder = async (arr: { items: ICard[] }) => {
 		return Number(data.id)
 	}
 	catch (e: unknown) {
-		console.log(e + ' ошибка заказа')
+		console.log(e + ', error completing the order')
 		alert('Не удалось совершить заказ, попробуйте позже')
 	}
 }

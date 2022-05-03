@@ -21,3 +21,28 @@
     font-weight: 500;
   }
 }
+
+.greenButton {
+  position: relative;
+
+  &:hover img {
+    transform: translateX(5px);
+  }
+
+  &:disabled {
+    background: gray;
+    opacity: 0.5;
+
+    img {
+      transform: initial;
+    }
+
+  }
+
+  img {
+    position: absolute;
+    right: 30px;
+    top: 21px;
+    transition: ease-in-out .2s;
+  }
+}

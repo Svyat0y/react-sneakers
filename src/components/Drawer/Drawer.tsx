@@ -61,7 +61,7 @@ const Drawer = (): JSX.Element => {
 									{
 										cartItems.length > 0
 											? cartItems && cartItems.map(item =>
-											<CartItem item={ item } onRemoveCart={ onRemoveCart }/>)
+											<CartItem key={ item.id } item={ item } onRemoveCart={ onRemoveCart }/>)
 											: <Info
 												title={
 													isOrderComplete

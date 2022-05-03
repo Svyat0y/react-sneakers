@@ -26,7 +26,7 @@ const CartOrder = ({ cartItems, disabledBtn, onOrder }: ICartOrder): JSX.Element
 							<b>{ tax } руб.</b>
 						</li>
 					</ul>
-					<button disabled={ disabledBtn } onClick={ onOrder } className={ `${ styles.greenButton } greenButton` }>
+					<button className={ `${ styles.greenButton } greenButton` } disabled={ disabledBtn } onClick={ onOrder }>
 						Оформить заказ
 						<img src='/img/arrow.svg' alt='orderArrow'/>
 					</button>
