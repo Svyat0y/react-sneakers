@@ -40,18 +40,58 @@ export const fetchFavoriteItems = async (): Promise<Array<ICard>> => {
 }
 
 export const fetchAddToCart = async (obj: ICard) => {
-	await instance.post<ICard>('cart', obj)
+	try {
+		await instance.post<ICard>('cart', obj)
+	}
+	catch (e) {
+		console.log(e + ', error adding to cart')
+		alert('Ошибка добавления в карзину, попробуйте позже')
+	}
 }
 
 export const fetchAddToFavorites = async (obj: ICard) => {
-	const { data }: { data: ICard } = await instance.post<ICard>('favorites', obj)
-	return data
+	try {
+		const { data }: { data: ICard } = await instance.post<ICard>('favorites', obj)
+		return data
+	}
+	catch (e) {
+		console.log(e + ', error adding to favorites')
+		alert('Ошибка добавления в избранные, попробуйте позже')
+	}
 }
 
 export const fetchDeleteCart = async (id?: number) => {
-	await instance.delete<ICard>(`cart/${ id }`)
+	try {
+		await instance.delete<ICard>(`cart/${ id }`)
+	}
+	catch (e) {
+		console.log(e + ', error delete from cart')
+		alert('Ошбика удаления товара с корзины, попробуте позже')
+	}
 }
 
 export const fetchDeleteFavorites = async (id?: number) => {
-	await instance.delete<ICard>(`favorites/${ id }`)
+	try {
+		await instance.delete<ICard>(`favorites/${ id }`)
+	}
+	catch (e) {
+		console.log(e + ', error delete from favorites')
+		alert('Ошибка удаления с избранных')
+	}
+}
+
+interface IOrderData {
+	id: string
+	items: ICard[]
+}
+
+export const fetchSendOrder = async (arr: { items: ICard[] }) => {
+	try {
+		const { data }: { data: IOrderData } = await instance.post<IOrderData>('order/', arr)
+		return Number(data.id)
+	}
+	catch (e: unknown) {
+		console.log(e + ' ошибка заказа')
+		alert('Не удалось совершить заказ, попробуйте позже')
+	}
 }

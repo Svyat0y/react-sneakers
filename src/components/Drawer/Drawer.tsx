@@ -4,12 +4,15 @@ import { useContext, useEffect, useState } from 'react'
 import { Info }    from '../Info'
 import { Spinner } from '../Spinner'
 
-import { AppContext } from '../../context'
+import { AppContext }     from '../../context'
+import { fetchSendOrder } from '../../api/api'
 
 
 const Drawer = (): JSX.Element => {
-	const [ isLoading, setIsLoading ] = useState(true)
-	const { cartItems, closeCart, onRemoveCart } = useContext(AppContext)
+	const [ isLoading, setIsLoading ] = useState<boolean>(true)
+	const [ isOrderComplete, setIsOrderComplete ] = useState<boolean>(false)
+	const [ orderId, setOrderId ] = useState<null | number | undefined>(null)
+	const { cartItems, closeCart, onRemoveCart, setCartItems } = useContext(AppContext)
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
@@ -20,6 +23,13 @@ const Drawer = (): JSX.Element => {
 			clearTimeout(timeOut)
 		}
 	}, [])
+
+	const onOrder = async () => {
+		const data = await fetchSendOrder({ items: cartItems })
+		setOrderId(data)
+		setIsOrderComplete(true)
+		setCartItems([])
+	}
 
 	return (
 		<div className={ styles.overlay }>
@@ -59,11 +69,23 @@ const Drawer = (): JSX.Element => {
 													alt='close'/>
 											</div>)
 											: <Info
-												title={ 'Корзина пустая' }
-												description={ 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.' }
+												title={
+													isOrderComplete
+														? 'Корзина пустая'
+														: 'Заказ оформлен!'
+												}
+												description={
+													!isOrderComplete
+														? 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'
+														: `Ваш заказ #${ orderId } скоро будет передан курьерской доставке.`
+												}
 												onClose={ closeCart }
 												size={ 120 }
-												image='/img/empty_cart.svg'
+												image={
+													!isOrderComplete
+														? '/img/empty_cart.svg'
+														: '/img/order_complete.svg'
+												}
 											/>
 									}
 								</div>
@@ -81,7 +103,7 @@ const Drawer = (): JSX.Element => {
 												<b>1074 руб.</b>
 											</li>
 										</ul>
-										<button className={ `${ styles.greenButton } greenButton` }>
+										<button onClick={ onOrder } className={ `${ styles.greenButton } greenButton` }>
 											Оформить заказ
 											<img src='/img/arrow.svg' alt='orderArrow'/>
 										</button>

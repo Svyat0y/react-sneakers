@@ -4,13 +4,13 @@ import { Link }      from 'react-router-dom'
 
 
 const Info = ({ title, description, image, size, onClose }: InfoProps): JSX.Element => {
-
+	
 	return (
 		<div className={ styles.emptyWrapped }>
 			<img
 				width={ size }
 				height={ size }
-				src={ image } alt=''/>
+				src={ image } alt='image'/>
 			<h3>{ title }</h3>
 			<p>{ description }</p>
 			<Link to={ '/' } onClick={ onClose }>

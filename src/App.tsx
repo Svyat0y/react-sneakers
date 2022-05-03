@@ -36,45 +36,30 @@ const App = (): JSX.Element => {
 	}, [])
 
 	const onAddToCart = async (obj: ICard) => {
-		try {
-			if (cartItems.find(item => Number(item.id) === Number(obj.id))) {
-				await fetchDeleteCart(obj.id)
-				setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
-			}
-			else{
-				await fetchAddToCart(obj)
-				setCartItems(prev => [ ...prev, obj ])
-			}
+		if (cartItems.find(item => Number(item.id) === Number(obj.id))) {
+			await fetchDeleteCart(obj.id)
+			setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
 		}
-		catch (error) {
-			alert(error)
+		else{
+			await fetchAddToCart(obj)
+			setCartItems(prev => [ ...prev, obj ])
 		}
 	}
 
 	const onAddToFavorite = async (obj: ICard) => {
-		try {
-			if (favoriteItems.find(item => Number(item.id) === Number(obj.id))) {
-				await fetchDeleteFavorites(obj.id)
-				setFavoriteItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
-			}
-			else{
-				const data: any = await fetchAddToFavorites(obj)
-				setFavoriteItems(prev => [ ...prev, data ])
-			}
+		if (favoriteItems.find(item => Number(item.id) === Number(obj.id))) {
+			await fetchDeleteFavorites(obj.id)
+			setFavoriteItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
 		}
-		catch (error) {
-			alert(error)
+		else{
+			const data: any = await fetchAddToFavorites(obj)
+			setFavoriteItems(prev => [ ...prev, data ])
 		}
 	}
 
 	const onRemoveCart = async (obj: ICard) => {
-		try {
-			await fetchDeleteCart(obj.id)
-			setCartItems(prev => prev.filter(item => item !== obj))
-		}
-		catch (error) {
-			alert(error)
-		}
+		await fetchDeleteCart(obj.id)
+		setCartItems(prev => prev.filter(item => item !== obj))
 	}
 
 	const closeCart = () => {
@@ -100,14 +85,15 @@ const App = (): JSX.Element => {
 		sneakers,
 		favoriteItems,
 		cartItems,
+		searchValue,
 		hasCardAdded,
 		onAddToFavorite,
 		onAddToCart,
 		closeCart,
 		onRemoveCart,
 		onHandleChange,
-		searchValue,
-		openCart
+		openCart,
+		setCartItems
 	}
 
 	return (
