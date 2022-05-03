@@ -1,8 +1,10 @@
 import styles                              from './Drawer.module.scss'
 import { useContext, useEffect, useState } from 'react'
 
-import { Info }    from '../Info'
-import { Spinner } from '../Spinner'
+import { Info }      from '../Info'
+import { Spinner }   from '../Spinner'
+import { CartItem }  from './CartItem'
+import { CartOrder } from './CartOrder'
 
 import { AppContext }     from '../../context'
 import { fetchSendOrder } from '../../api/api'
@@ -59,19 +61,7 @@ const Drawer = (): JSX.Element => {
 									{
 										cartItems.length > 0
 											? cartItems && cartItems.map(item =>
-											<div key={ item.id } className={ styles.cartItem }>
-												<img width={ 70 } height={ 70 } src={ item.img } alt='sneakers'/>
-												<div>
-													<p>{ item.title }</p>
-													<b>{ item.price } руб.</b>
-												</div>
-												<img
-													onClick={ () => onRemoveCart(item) }
-													width={ 32 } height={ 32 }
-													className={ styles.removeBtn }
-													src='/img/remove_btn.svg'
-													alt='close'/>
-											</div>)
+											<CartItem item={ item } onRemoveCart={ onRemoveCart }/>)
 											: <Info
 												title={
 													isOrderComplete
@@ -93,26 +83,7 @@ const Drawer = (): JSX.Element => {
 											/>
 									}
 								</div>
-								{
-									cartItems.length > 0 && <div className={ styles.cartTotalBlock }>
-										<ul>
-											<li className='d-flex'>
-												<span>Итого:</span>
-												<div></div>
-												<b>21 498 руб.</b>
-											</li>
-											<li className='d-flex'>
-												<span>Налог 5%</span>
-												<div></div>
-												<b>1074 руб.</b>
-											</li>
-										</ul>
-										<button disabled={ disabledBtn } onClick={ onOrder } className={ `${ styles.greenButton } greenButton` }>
-											Оформить заказ
-											<img src='/img/arrow.svg' alt='orderArrow'/>
-										</button>
-									</div>
-								}
+								<CartOrder cartItems={ cartItems } disabledBtn={ disabledBtn } onOrder={ onOrder }/>
 							</>
 					}
 				</div>
