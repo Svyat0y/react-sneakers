@@ -1,1 +1,1 @@
-export type { ICard } from './card.interface'
+export type { ICard } from './interfaces'

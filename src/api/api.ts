@@ -1,11 +1,12 @@
-import axios     from 'axios'
-import { ICard } from '../interfaces'
+import axios       from 'axios'
+import { ICard }   from '../interfaces'
+import { IOrders } from '../interfaces/interfaces'
 
 
 const instance = axios.create({
 	baseURL: 'https://61fab37792093f0017ad99eb.mockapi.io/api/'
 })
-
+// delay in clearing the trash array on the server so as not to get banned
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export const fetchSneakers = async (): Promise<Array<ICard>> => {
@@ -41,9 +42,21 @@ export const fetchFavoriteItems = async (): Promise<Array<ICard>> => {
 	}
 }
 
+export const fetchOrderItems = async (): Promise<Array<ICard>> => {
+	try {
+		const { data }: { data: IOrders[] } = await instance.get('order')
+		return data.map((item: IOrders) => item.items)
+	}
+	catch (e: unknown) {
+		console.log(e + ', empty array in this endpoint')
+		return []
+	}
+}
+
 export const fetchAddToCart = async (obj: ICard) => {
 	try {
-		await instance.post<ICard>('cart', obj)
+		const { data }: { data: ICard } = await instance.post<ICard>('cart', obj)
+		return data
 	}
 	catch (e: unknown) {
 		console.log(e + ', error adding to cart')

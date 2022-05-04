@@ -11,7 +11,7 @@ import { AppContext } from '../../context'
 
 const Home = (): JSX.Element => {
 	const [ isLoading, setIsLoading ] = useState(true)
-	const { sneakers, searchValue, cartItems, favoriteItems } = useContext(AppContext)
+	const { sneakers, searchValue } = useContext(AppContext)
 
 	useEffect(() => {
 		sneakers.some((item) => item) && setIsLoading(false)
@@ -22,8 +22,6 @@ const Home = (): JSX.Element => {
 		return (
 			<Card
 				key={ index }
-				added={ cartItems.some(item => Number(item.id) === Number(obj.id)) }
-				favorited={ favoriteItems.some(item => Number(item.id) === Number(obj.id)) }
 				{ ...obj }
 			/>
 		)

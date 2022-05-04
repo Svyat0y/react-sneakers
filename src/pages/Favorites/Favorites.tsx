@@ -7,24 +7,30 @@ import { Card }          from '../../components/Card'
 import { Info }          from '../../components/Info'
 import { Spinner }       from '../../components/Spinner'
 
-import { AppContext } from '../../context'
+import { AppContext }         from '../../context'
+import { fetchFavoriteItems } from '../../api/api'
 
 
 const Favorites = (): JSX.Element => {
 
 	const [ isLoading, setIsLoading ] = useState(true)
-	const { favoriteItems } = useContext(AppContext)
+	const { favoriteItems, setFavoriteItems } = useContext(AppContext)
 
 	useEffect(() => {
-		setIsLoading(true)
-		favoriteItems.length >= 0 && setIsLoading(false)
-	}, [ favoriteItems ])
+		const getItems = async () => {
+			setIsLoading(true)
+			const favoriteItems = await fetchFavoriteItems()
+			setFavoriteItems(favoriteItems)
+			setIsLoading(false)
+		}
+
+		getItems()
+	}, [])
 
 	const items = favoriteItems && favoriteItems.map((item: ICard, index: number) => {
 		return (
 			<Card
 				key={ index }
-				favorited={ true }
 				{ ...item }
 			/>
 		)
@@ -40,8 +46,8 @@ const Favorites = (): JSX.Element => {
 						{ favoriteItems && favoriteItems.length > 0
 							? items
 							: <Info
-								title='У вас нет заказов'
-								description='Вы нищеброд? Оформите хотя бы один заказ.'
+								title='Закладок нет :('
+								description='Вы ничего не добавляли в закладки'
 								size={ 70 }
 								image='/img/smile_favourite.svg'
 							/>

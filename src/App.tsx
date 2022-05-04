@@ -6,9 +6,10 @@ import { Header }    from './components/Header'
 import { Drawer }    from './components/Drawer'
 import { Home }      from './pages/Home'
 import { Favorites } from './pages/Favorites'
+import { Orders }    from './pages/Orders'
 
-import { fetchSneakers, fetchAddToCart, fetchDeleteCart, fetchCartItems } from './api'
-import { fetchAddToFavorites, fetchDeleteFavorites, fetchFavoriteItems }  from './api/api'
+import { fetchSneakers, fetchAddToCart, fetchDeleteCart, fetchCartItems }                 from './api'
+import { fetchAddToFavorites, fetchDeleteFavorites, fetchFavoriteItems, fetchOrderItems } from './api/api'
 
 import { AppContext } from './context'
 import { IAppCtx }    from './context/context'
@@ -18,23 +19,32 @@ const App = (): JSX.Element => {
 	const [ sneakers, setSneakers ] = useState<Array<ICard>>([])
 	const [ favoriteItems, setFavoriteItems ] = useState<Array<ICard>>([])
 	const [ cartItems, setCartItems ] = useState<Array<ICard>>([])
+	const [ orderItems, setOrderItems ] = useState<Array<ICard>>([])
 	const [ cartOpened, setCartOpened ] = useState(false)
 	const [ searchValue, setInputValue ] = useState('')
 
-	const totalPrice = cartItems.reduce((a, b) => a + b.price, 0)
+	const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0)
 
 	useEffect(() => {
-		async function fetchAllData() {
-			const cartItems = await fetchCartItems()
-			const favoriteItems = await fetchFavoriteItems()
-			const sneakers = await fetchSneakers()
+		const getAllItems = async () => {
+			let cartItems
+			let favoriteItems
+			let sneakers
+			let orderItems
 
+			Promise.all([
+				cartItems = await fetchCartItems(),
+				favoriteItems = await fetchFavoriteItems(),
+				sneakers = await fetchSneakers(),
+				orderItems = await fetchOrderItems()
+			])
 			setCartItems(cartItems)
 			setFavoriteItems(favoriteItems)
+			setOrderItems(orderItems)
 			setSneakers(sneakers)
 		}
 
-		fetchAllData()
+		getAllItems()
 	}, [])
 
 	const onAddToCart = async (obj: ICard) => {
@@ -43,8 +53,10 @@ const App = (): JSX.Element => {
 			setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
 		}
 		else{
-			await fetchAddToCart(obj)
-			setCartItems(prev => [ ...prev, obj ])
+			const data = await fetchAddToCart(obj)
+			if (data) {
+				setCartItems(prev => [ ...prev, data ])
+			}
 		}
 	}
 
@@ -52,10 +64,13 @@ const App = (): JSX.Element => {
 		if (favoriteItems.find(item => Number(item.id) === Number(obj.id))) {
 			await fetchDeleteFavorites(obj.id)
 			setFavoriteItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
+			setFavoriteItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
 		}
 		else{
-			const data: any = await fetchAddToFavorites(obj)
-			setFavoriteItems(prev => [ ...prev, data ])
+			const data = await fetchAddToFavorites(obj)
+			if (data) {
+				setFavoriteItems(prev => [ ...prev, data ])
+			}
 		}
 	}
 
@@ -79,23 +94,21 @@ const App = (): JSX.Element => {
 		setInputValue(value)
 	}
 
-	const hasCardAdded = (id: number) => {
-		return cartItems.some(item => Number(item.id) === Number(id))
-	}
-
 	const context: IAppCtx = {
 		sneakers,
 		favoriteItems,
 		cartItems,
+		orderItems,
+		setCartItems,
+		setFavoriteItems,
+		setOrderItems,
 		searchValue,
-		hasCardAdded,
 		onAddToFavorite,
 		onAddToCart,
 		closeCart,
 		onRemoveCart,
 		onHandleChange,
 		openCart,
-		setCartItems,
 		totalPrice
 	}
 
@@ -107,6 +120,7 @@ const App = (): JSX.Element => {
 				<Routes>
 					<Route path={ '/' } element={ <Home/> }/>
 					<Route path={ 'favorites/*' } element={ <Favorites/> }/>
+					<Route path={ 'orders/*' } element={ <Orders/> }/>
 				</Routes>
 			</div>
 		</AppContext.Provider>

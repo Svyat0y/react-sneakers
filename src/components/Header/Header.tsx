@@ -30,7 +30,9 @@ const Header = (): JSX.Element => {
 					</Link>
 				</li>
 				<li>
-					<img width={ 20 } height={ 20 } src='/img/user.svg' alt='user'/>
+					<Link to={ '/orders' }>
+						<img width={ 20 } height={ 20 } src='/img/user.svg' alt='user'/>
+					</Link>
 				</li>
 			</ul>
 		</header>

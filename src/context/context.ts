@@ -6,7 +6,10 @@ export interface IAppCtx {
 	sneakers: ICard[] | []
 	favoriteItems: ICard[] | []
 	cartItems: ICard[] | []
-	hasCardAdded: (id: number) => boolean
+	orderItems: ICard[] | []
+	setCartItems: (obj: Array<ICard>) => void
+	setFavoriteItems: (obj: Array<ICard>) => void
+	setOrderItems: (obj: Array<ICard>) => void
 	onAddToCart: (obj: ICard) => void
 	onAddToFavorite: (obj: ICard) => void
 	closeCart: () => void
@@ -14,7 +17,6 @@ export interface IAppCtx {
 	onHandleChange: (e: ChangeEvent<HTMLInputElement>) => void
 	openCart: () => void
 	searchValue: string
-	setCartItems: (obj: Array<ICard>) => void,
 	totalPrice: number
 }
 
@@ -22,7 +24,10 @@ export const AppContext = createContext<IAppCtx>({
 	sneakers: [],
 	favoriteItems: [],
 	cartItems: [],
-	hasCardAdded: () => false,
+	orderItems: [],
+	setCartItems: () => undefined,
+	setFavoriteItems: () => undefined,
+	setOrderItems: () => undefined,
 	onAddToFavorite: () => undefined,
 	onAddToCart: () => undefined,
 	closeCart: () => undefined,
@@ -30,6 +35,5 @@ export const AppContext = createContext<IAppCtx>({
 	onHandleChange: () => undefined,
 	searchValue: '',
 	openCart: () => undefined,
-	setCartItems: () => undefined,
 	totalPrice: 0
 })

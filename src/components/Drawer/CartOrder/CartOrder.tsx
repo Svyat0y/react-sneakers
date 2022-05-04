@@ -7,7 +7,7 @@ import { AppContext } from '../../../context'
 
 const CartOrder = ({ cartItems, disabledBtn, onOrder }: ICartOrder): JSX.Element => {
 	const { totalPrice } = useContext(AppContext)
-	const tax: number = totalPrice * 0.05
+	const tax: number = totalPrice / 100 * 5
 
 	return (
 		<>
@@ -18,7 +18,7 @@ const CartOrder = ({ cartItems, disabledBtn, onOrder }: ICartOrder): JSX.Element
 						<li className='d-flex'>
 							<span>Итого:</span>
 							<div></div>
-							<b>{ totalPrice }</b>
+							<b>{ totalPrice + tax }</b>
 						</li>
 						<li className='d-flex'>
 							<span>Налог 5%</span>
