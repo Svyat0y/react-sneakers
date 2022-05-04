@@ -1,35 +1,40 @@
-import styles         from './Card.module.scss'
-import { CardProps }  from './Card.Props'
-import { useContext } from 'react'
+import styles                   from './Card.module.scss'
+import { CardProps }            from './Card.Props'
+import { useContext, useState } from 'react'
 
 import { AppContext } from '../../context'
 
 
 const Card = ({ id, title, price, img, orderedItems }: CardProps): JSX.Element => {
+	const [ disabledBtn, setDisabledBtn ] = useState(false)
 	const { onAddToCart, onAddToFavorite, cartItems, favoriteItems } = useContext(AppContext)
 
 	const isFavorite = favoriteItems.some((item) => Number(item.id) === Number(id))
 	const isAdded = cartItems.some((item) => Number(item.id) === Number(id))
 
-	const onClickPlus = () => {
+	const onClickPlus = async () => {
+		setDisabledBtn(true)
 		const obj = { id, title, price, img }
-		onAddToCart(obj)
+		await onAddToCart(obj)
+		setDisabledBtn(false)
 	}
 
-	const onClickFavorite = () => {
+	const onClickFavorite = async () => {
+		setDisabledBtn(true)
 		const obj = { id, title, price, img }
-		onAddToFavorite(obj)
+		await onAddToFavorite(obj)
+		setDisabledBtn(false)
 	}
 
 	return (
 		<div className={ styles.card }>
 			{ !orderedItems &&
 				<img
-					onClick={ onClickFavorite }
+					onClick={ disabledBtn ? () => false : onClickFavorite }
 					className={ styles.favorite }
 					width={ 32 }
 					height={ 32 }
-					src={ isFavorite ? '/img/heart_liked.svg' : '/img/heart_unliked.svg' }
+					src={ isFavorite && !disabledBtn ? '/img/heart_liked.svg' : '/img/heart_unliked.svg' }
 					alt='Unliked'
 				/> }
 			<img
@@ -47,11 +52,11 @@ const Card = ({ id, title, price, img, orderedItems }: CardProps): JSX.Element =
 				</div>
 				{ !orderedItems &&
 					<img
-						onClick={ onClickPlus }
+						onClick={ disabledBtn ? () => false : onClickPlus }
 						className='cu-p'
 						width={ 32 }
 						height={ 32 }
-						src={ isAdded ? '/img/btn_checked.svg' : '/img/btn_plus.svg' }
+						src={ isAdded && !disabledBtn ? '/img/btn_checked.svg' : '/img/btn_plus.svg' }
 						alt='btn_plus'
 					/> }
 			</div>
