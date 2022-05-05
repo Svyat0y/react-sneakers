@@ -8,8 +8,8 @@ import { Home }      from './pages/Home'
 import { Favorites } from './pages/Favorites'
 import { Orders }    from './pages/Orders'
 
-import { fetchSneakers, fetchAddToCart, fetchDeleteCart, fetchCartItems }                 from './api'
-import { fetchAddToFavorites, fetchDeleteFavorites, fetchFavoriteItems, fetchOrderItems } from './api/api'
+import { fetchSneakers, fetchAddToCart, fetchDeleteCart, fetchCartItems } from './api'
+import { fetchAddToFavorites, fetchDeleteFavorites, fetchFavoriteItems }  from './api/api'
 
 import { AppContext } from './context'
 import { IAppCtx }    from './context/context'
@@ -19,7 +19,6 @@ const App = (): JSX.Element => {
 	const [ sneakers, setSneakers ] = useState<Array<ICard>>([])
 	const [ favoriteItems, setFavoriteItems ] = useState<Array<ICard>>([])
 	const [ cartItems, setCartItems ] = useState<Array<ICard>>([])
-	const [ orderItems, setOrderItems ] = useState<Array<ICard>>([])
 	const [ cartOpened, setCartOpened ] = useState(false)
 	const [ searchValue, setInputValue ] = useState('')
 
@@ -30,17 +29,14 @@ const App = (): JSX.Element => {
 			let cartItems
 			let favoriteItems
 			let sneakers
-			let orderItems
 
 			Promise.all([
 				cartItems = await fetchCartItems(),
 				favoriteItems = await fetchFavoriteItems(),
-				sneakers = await fetchSneakers(),
-				orderItems = await fetchOrderItems()
+				sneakers = await fetchSneakers()
 			])
 			setCartItems(cartItems)
 			setFavoriteItems(favoriteItems)
-			setOrderItems(orderItems)
 			setSneakers(sneakers)
 		}
 
@@ -98,10 +94,8 @@ const App = (): JSX.Element => {
 		sneakers,
 		favoriteItems,
 		cartItems,
-		orderItems,
 		setCartItems,
 		setFavoriteItems,
-		setOrderItems,
 		searchValue,
 		onAddToFavorite,
 		onAddToCart,

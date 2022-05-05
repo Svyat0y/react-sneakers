@@ -6,10 +6,8 @@ export interface IAppCtx {
 	sneakers: ICard[] | []
 	favoriteItems: ICard[] | []
 	cartItems: ICard[] | []
-	orderItems: ICard[] | []
 	setCartItems: (obj: Array<ICard>) => void
 	setFavoriteItems: (obj: Array<ICard>) => void
-	setOrderItems: (obj: Array<ICard>) => void
 	onAddToCart: (obj: ICard) => void
 	onAddToFavorite: (obj: ICard) => void
 	closeCart: () => void
@@ -24,10 +22,8 @@ export const AppContext = createContext<IAppCtx>({
 	sneakers: [],
 	favoriteItems: [],
 	cartItems: [],
-	orderItems: [],
 	setCartItems: () => undefined,
 	setFavoriteItems: () => undefined,
-	setOrderItems: () => undefined,
 	onAddToFavorite: () => undefined,
 	onAddToCart: () => undefined,
 	closeCart: () => undefined,

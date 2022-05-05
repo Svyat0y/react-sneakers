@@ -1,21 +1,19 @@
-import styles                              from './Orders.module.scss'
-import { ICard }                           from '../../interfaces'
-import { useContext, useEffect, useState } from 'react'
+import styles                  from './Orders.module.scss'
+import { ICard }               from '../../interfaces'
+import { useEffect, useState } from 'react'
 
 import { ContentHeader } from '../../components/ContentHeader'
 import { Spinner }       from '../../components/Spinner'
 import { Info }          from '../../components/Info'
 import { Card }          from '../../components/Card'
 
-import { AppContext }      from '../../context'
 import { fetchOrderItems } from '../../api/api'
 
 
 const Orders = (): JSX.Element => {
 
+	const [ orderItems, setOrderItems ] = useState<Array<ICard>>([])
 	const [ isLoading, setIsLoading ] = useState(true)
-	const { orderItems, setOrderItems } = useContext(AppContext)
-
 
 	useEffect(() => {
 		const getItems = async () => {
