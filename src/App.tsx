@@ -22,6 +22,8 @@ const App = (): JSX.Element => {
 	const [ cartOpened, setCartOpened ] = useState(false)
 	const [ searchValue, setInputValue ] = useState('')
 
+	console.log(cartItems)
+
 	const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0)
 
 	useEffect(() => {
@@ -38,10 +40,10 @@ const App = (): JSX.Element => {
 	}, [])
 
 	const onAddToCart = async (obj: ICard) => {
-		const findId: any = cartItems.find(item => Number(item.parentId) === Number(obj.id))
+		const findId: any = cartItems.find(item => Number(item.parentId) === Number(obj.parentId))
 		if (findId) {
 			const resp: boolean = await fetchDeleteCart(findId.id)
-			if (resp) setCartItems(prev => prev.filter(item => Number(item.parentId) !== Number(obj.id)))
+			if (resp) setCartItems(prev => prev.filter(item => Number(item.parentId) !== Number(obj.parentId)))
 		}
 		else{
 			const data = await fetchAddToCart(obj)
@@ -50,10 +52,10 @@ const App = (): JSX.Element => {
 	}
 
 	const onAddToFavorite = async (obj: ICard) => {
-		const findId: any = favoriteItems.find(item => Number(item.parentId) === Number(obj.id))
+		const findId: any = favoriteItems.find(item => Number(item.parentId) === Number(obj.parentId))
 		if (findId) {
 			const resp: boolean = await fetchDeleteFavorites(findId.id)
-			if (resp) setFavoriteItems(prev => prev.filter(item => Number(item.parentId) !== Number(obj.id)))
+			if (resp) setFavoriteItems(prev => prev.filter(item => Number(item.parentId) !== Number(obj.parentId)))
 		}
 		else{
 			const data = await fetchAddToFavorites(obj)

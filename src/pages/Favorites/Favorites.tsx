@@ -14,7 +14,7 @@ import { fetchFavoriteItems } from '../../api/api'
 const Favorites = (): JSX.Element => {
 
 	const [ isLoading, setIsLoading ] = useState(true)
-	const { favoriteItems, setFavoriteItems } = useContext(AppContext)
+	const { cartItems, favoriteItems, setFavoriteItems } = useContext(AppContext)
 
 	useEffect(() => {
 		const getItems = async () => {
@@ -28,11 +28,13 @@ const Favorites = (): JSX.Element => {
 	}, [])
 
 	const items = favoriteItems && favoriteItems.map((obj: ICard, index: number) => {
-		const isFavorite = favoriteItems.some((item) => Number(item.id) === Number(obj.id))
+		const isAdded = cartItems.some((item) => Number(item.parentId) === Number(obj.parentId))
+		// const isFavorite = favoriteItems.some((item) => Number(item.parentId) === Number(obj.id))
 		return (
 			<Card
 				key={ index }
-				isFavorite={ isFavorite }
+				isFavorite={ true }
+				isAdded={ isAdded }
 				{ ...obj }
 			/>
 		)
