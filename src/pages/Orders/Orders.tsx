@@ -1,6 +1,6 @@
 import styles                  from './Orders.module.scss'
 import { ICard }               from '../../interfaces'
-import { IOrderItems }         from '../../interfaces/interfaces'
+import { IOrderItem }          from '../../interfaces/interfaces'
 import { useEffect, useState } from 'react'
 
 import { ContentHeader } from '../../components/ContentHeader'
@@ -13,7 +13,7 @@ import { fetchOrderItems } from '../../api/api'
 
 const Orders = (): JSX.Element => {
 
-	const [ orderItems, setOrderItems ] = useState<IOrderItems[]>([])
+	const [ orderItems, setOrderItems ] = useState<IOrderItem[]>([])
 	const [ isLoading, setIsLoading ] = useState(true)
 
 	useEffect(() => {
@@ -25,7 +25,7 @@ const Orders = (): JSX.Element => {
 		})()
 	}, [])
 
-	const items = orderItems && orderItems.map((order: IOrderItems, index: number) => {
+	const items = orderItems && orderItems.map((order: IOrderItem, index: number) => {
 		return (
 			<div
 				key={ index }
@@ -33,11 +33,11 @@ const Orders = (): JSX.Element => {
 			>
 				<h2>Заказ #{ order.id }</h2>
 				<div className={ styles.orderWrapper }>
-					{ order.items.map((i: ICard, index: number) =>
+					{ order.items.map((card: ICard, index: number) =>
 						<Card
 							key={ index }
 							orderedItems={ true }
-							{ ...i }
+							{ ...card }
 						/>
 					) }
 				</div>

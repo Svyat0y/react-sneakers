@@ -1,6 +1,6 @@
-import axios           from 'axios'
-import { ICard }       from '../interfaces'
-import { IOrderItems } from '../interfaces/interfaces'
+import axios          from 'axios'
+import { ICard }      from '../interfaces'
+import { IOrderItem } from '../interfaces/interfaces'
 
 
 const instance = axios.create({
@@ -42,9 +42,9 @@ export const fetchFavoriteItems = async (): Promise<Array<ICard>> => {
 	}
 }
 
-export const fetchOrderItems = async (): Promise<Array<IOrderItems>> => {
+export const fetchOrderItems = async (): Promise<Array<IOrderItem>> => {
 	try {
-		const { data }: { data: IOrderItems[] } = await instance.get('order')
+		const { data }: { data: IOrderItem[] } = await instance.get('order')
 		return data
 	}
 	catch (e: unknown) {

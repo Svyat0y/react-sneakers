@@ -6,7 +6,7 @@ export interface ICard {
 	orderedItems?: boolean
 }
 
-export interface IOrderItems {
+export interface IOrderItem {
 	id: string
 	items: ICard[]
 }
