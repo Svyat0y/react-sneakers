@@ -38,29 +38,26 @@ const App = (): JSX.Element => {
 	}, [])
 
 	const onAddToCart = async (obj: ICard) => {
-		if (cartItems.find(item => Number(item.id) === Number(obj.id))) {
-			await fetchDeleteCart(obj.id)
-			setCartItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
+		const findId: any = cartItems.find(item => Number(item.parentId) === Number(obj.id))
+		if (findId) {
+			const resp: boolean = await fetchDeleteCart(findId.id)
+			if (resp) setCartItems(prev => prev.filter(item => Number(item.parentId) !== Number(obj.id)))
 		}
 		else{
 			const data = await fetchAddToCart(obj)
-			if (data) {
-				setCartItems(prev => [ ...prev, data ])
-			}
+			if (data) setCartItems(prev => [ ...prev, data ])
 		}
 	}
 
 	const onAddToFavorite = async (obj: ICard) => {
-		if (favoriteItems.find(item => Number(item.id) === Number(obj.id))) {
-			await fetchDeleteFavorites(obj.id)
-			setFavoriteItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
-			setFavoriteItems(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
+		const findId: any = favoriteItems.find(item => Number(item.parentId) === Number(obj.id))
+		if (findId) {
+			const resp: boolean = await fetchDeleteFavorites(findId.id)
+			if (resp) setFavoriteItems(prev => prev.filter(item => Number(item.parentId) !== Number(obj.id)))
 		}
 		else{
 			const data = await fetchAddToFavorites(obj)
-			if (data) {
-				setFavoriteItems(prev => [ ...prev, data ])
-			}
+			if (data) setFavoriteItems(prev => [ ...prev, data ])
 		}
 	}
 

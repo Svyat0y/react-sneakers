@@ -1,5 +1,6 @@
 export interface ICard {
 	id: number
+	parentId: number
 	title: string
 	price: number
 	img: string

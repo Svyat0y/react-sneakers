@@ -76,22 +76,27 @@ export const fetchAddToFavorites = async (obj: ICard) => {
 }
 
 export const fetchDeleteCart = async (id?: number) => {
+	console.log(id)
 	try {
 		await instance.delete<ICard>(`cart/${ id }`)
+		return true
 	}
 	catch (e: unknown) {
 		console.log(e + ', error delete from cart')
 		alert('Ошбика удаления товара с корзины, попробуте позже')
+		return false
 	}
 }
 
 export const fetchDeleteFavorites = async (id?: number) => {
 	try {
 		await instance.delete<ICard>(`favorites/${ id }`)
+		return true
 	}
 	catch (e: unknown) {
 		console.log(e + ', error delete from favorites')
 		alert('Ошибка удаления с избранных')
+		return false
 	}
 }
 

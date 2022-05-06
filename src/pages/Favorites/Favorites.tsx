@@ -27,11 +27,13 @@ const Favorites = (): JSX.Element => {
 		getItems()
 	}, [])
 
-	const items = favoriteItems && favoriteItems.map((item: ICard, index: number) => {
+	const items = favoriteItems && favoriteItems.map((obj: ICard, index: number) => {
+		const isFavorite = favoriteItems.some((item) => Number(item.id) === Number(obj.id))
 		return (
 			<Card
 				key={ index }
-				{ ...item }
+				isFavorite={ isFavorite }
+				{ ...obj }
 			/>
 		)
 	})

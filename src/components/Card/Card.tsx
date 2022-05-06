@@ -5,23 +5,21 @@ import { useContext, useState } from 'react'
 import { AppContext } from '../../context'
 
 
-const Card = ({ id, title, price, img, orderedItems }: CardProps): JSX.Element => {
+const Card = ({ id, title, price, img, orderedItems, isAdded, isFavorite }: CardProps): JSX.Element => {
 	const [ disabledBtn, setDisabledBtn ] = useState(false)
-	const { onAddToCart, onAddToFavorite, cartItems, favoriteItems } = useContext(AppContext)
+	const { onAddToCart, onAddToFavorite } = useContext(AppContext)
 
-	const isFavorite = favoriteItems.some((item) => Number(item.id) === Number(id))
-	const isAdded = cartItems.some((item) => Number(item.id) === Number(id))
+
+	const obj = { id, parentId: id, title, price, img }
 
 	const onClickPlus = async () => {
 		setDisabledBtn(true)
-		const obj = { id, title, price, img }
 		await onAddToCart(obj)
 		setDisabledBtn(false)
 	}
 
 	const onClickFavorite = async () => {
 		setDisabledBtn(true)
-		const obj = { id, title, price, img }
 		await onAddToFavorite(obj)
 		setDisabledBtn(false)
 	}

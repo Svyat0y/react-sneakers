@@ -9,13 +9,13 @@
   overflow: hidden;
   visibility: hidden;
   opacity: 0;
-  transition: opasity ease-in-out .1s, visibility ease-in-out .1s;
+  transition: opacity ease-in-out .2s, visibility ease-in-out .2s;
 }
 
 .overlayVisible {
   visibility: visible;
   opacity: 1;
-  transition: opasity ease-in-out .1s, visibility ease-in-out .1s;
+  transition: opacity ease-in-out .3s, visibility ease-in-out .3s;
 }
 
 .drawer {
