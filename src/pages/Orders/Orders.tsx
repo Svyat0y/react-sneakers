@@ -2,6 +2,7 @@ import styles                  from './Orders.module.scss'
 import { ICard }               from '../../interfaces'
 import { IOrderItem }          from '../../interfaces/interfaces'
 import { useEffect, useState } from 'react'
+import { cleanup }             from '@testing-library/react'
 
 import { ContentHeader } from '../../components/ContentHeader'
 import { Spinner }       from '../../components/Spinner'
@@ -23,6 +24,8 @@ const Orders = (): JSX.Element => {
 			setOrderItems(orderItems)
 			setIsLoading(false)
 		})()
+
+		return () => cleanup()
 	}, [])
 
 	const items = orderItems && orderItems.map((order: IOrderItem, index: number) => {

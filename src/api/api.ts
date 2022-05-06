@@ -76,7 +76,6 @@ export const fetchAddToFavorites = async (obj: ICard) => {
 }
 
 export const fetchDeleteCart = async (id?: number) => {
-	console.log(id)
 	try {
 		await instance.delete<ICard>(`cart/${ id }`)
 		return true

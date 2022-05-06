@@ -1,6 +1,7 @@
 import styles                              from './Favorites.module.scss'
 import { ICard }                           from '../../interfaces'
 import { useContext, useEffect, useState } from 'react'
+import { cleanup }                         from '@testing-library/react'
 
 import { ContentHeader } from '../../components/ContentHeader'
 import { Card }          from '../../components/Card'
@@ -25,6 +26,8 @@ const Favorites = (): JSX.Element => {
 		}
 
 		getItems()
+
+		return () => cleanup()
 	}, [])
 
 	const items = favoriteItems && favoriteItems.map((obj: ICard, index: number) => {

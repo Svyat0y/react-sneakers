@@ -1,5 +1,6 @@
 import { ICard }                            from './interfaces'
 import { ChangeEvent, useEffect, useState } from 'react'
+import { cleanup }                          from '@testing-library/react'
 import { Route, Routes }                    from 'react-router-dom'
 
 import { Header }    from './components/Header'
@@ -22,8 +23,6 @@ const App = (): JSX.Element => {
 	const [ cartOpened, setCartOpened ] = useState(false)
 	const [ searchValue, setInputValue ] = useState('')
 
-	console.log(cartItems)
-
 	const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0)
 
 	useEffect(() => {
@@ -37,6 +36,8 @@ const App = (): JSX.Element => {
 			setFavoriteItems(favoriteItems)
 			setSneakers(sneakers)
 		})()
+
+		return () => cleanup()
 	}, [])
 
 	const onAddToCart = async (obj: ICard) => {

@@ -1,6 +1,7 @@
-import styles                   from './Card.module.scss'
-import { CardProps }            from './Card.Props'
-import { useContext, useState } from 'react'
+import styles                              from './Card.module.scss'
+import { CardProps }                       from './Card.Props'
+import { useContext, useEffect, useState } from 'react'
+import { cleanup }                         from '@testing-library/react'
 
 import { AppContext } from '../../context'
 
@@ -9,8 +10,11 @@ const Card = ({ id, parentId, title, price, img, orderedItems, isAdded, isFavori
 	const [ disabledBtn, setDisabledBtn ] = useState(false)
 	const { onAddToCart, onAddToFavorite } = useContext(AppContext)
 
-
 	const obj = { id, parentId, title, price, img }
+
+	useEffect(() => {
+		return () => cleanup()
+	}, [])
 
 	const onClickPlus = async () => {
 		setDisabledBtn(true)
