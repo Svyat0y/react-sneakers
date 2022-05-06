@@ -34,7 +34,7 @@ const Card = ({ id, title, price, img, orderedItems }: CardProps): JSX.Element =
 					className={ styles.favorite }
 					width={ 32 }
 					height={ 32 }
-					src={ isFavorite && !disabledBtn ? '/img/heart_liked.svg' : '/img/heart_unliked.svg' }
+					src={ isFavorite ? '/img/heart_liked.svg' : '/img/heart_unliked.svg' }
 					alt='Unliked'
 				/> }
 			<img
@@ -56,7 +56,7 @@ const Card = ({ id, title, price, img, orderedItems }: CardProps): JSX.Element =
 						className='cu-p'
 						width={ 32 }
 						height={ 32 }
-						src={ isAdded && !disabledBtn ? '/img/btn_checked.svg' : '/img/btn_plus.svg' }
+						src={ isAdded ? '/img/btn_checked.svg' : '/img/btn_plus.svg' }
 						alt='btn_plus'
 					/> }
 			</div>

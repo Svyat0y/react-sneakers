@@ -25,22 +25,16 @@ const App = (): JSX.Element => {
 	const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0)
 
 	useEffect(() => {
-		const getAllItems = async () => {
-			let cartItems
-			let favoriteItems
-			let sneakers
-
-			Promise.all([
-				cartItems = await fetchCartItems(),
-				favoriteItems = await fetchFavoriteItems(),
-				sneakers = await fetchSneakers()
+		(async () => {
+			const [ cartItems, favoriteItems, sneakers ] = await Promise.all([
+				await fetchCartItems(),
+				await fetchFavoriteItems(),
+				await fetchSneakers()
 			])
 			setCartItems(cartItems)
 			setFavoriteItems(favoriteItems)
 			setSneakers(sneakers)
-		}
-
-		getAllItems()
+		})()
 	}, [])
 
 	const onAddToCart = async (obj: ICard) => {
