@@ -47,7 +47,7 @@ const Orders = (): JSX.Element => {
 
 	return (
 		<div className={ styles.content }>
-			<ContentHeader title={ 'Мои покупки' }/>
+			<ContentHeader title={ 'Мои заказы' }/>
 			{
 				isLoading
 					? <Spinner/>

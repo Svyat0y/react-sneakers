@@ -109,7 +109,7 @@ const App = (): JSX.Element => {
 	return (
 		<AppContext.Provider value={ context }>
 			<div className='wrapper clear'>
-				{ cartOpened && <Drawer/> }
+				<Drawer opened={ cartOpened }/>
 				<Header/>
 				<Routes>
 					<Route path={ '/' } element={ <Home/> }/>

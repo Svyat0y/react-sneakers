@@ -10,7 +10,7 @@ import { AppContext }     from '../../context'
 import { fetchSendOrder } from '../../api/api'
 
 
-const Drawer = (): JSX.Element => {
+const Drawer = ({ opened }: { opened: boolean }): JSX.Element => {
 	const [ isLoading, setIsLoading ] = useState<boolean>(true)
 	const [ isOrderComplete, setIsOrderComplete ] = useState<boolean>(false)
 	const [ orderId, setOrderId ] = useState<null | number | undefined>(null)
@@ -38,8 +38,8 @@ const Drawer = (): JSX.Element => {
 		setDisabledBtn(false)
 	}
 	return (
-		<div className={ styles.overlay }>
-			<div className={ styles.drawer }>
+		<div className={ `${ styles.overlay } ${ opened ? styles.overlayVisible : '' }` }>
+			<div className={ `${ styles.drawer } ${ opened ? styles.drawerVisible : '' }` }>
 				<h2>
 					Корзина
 					<img
