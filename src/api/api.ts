@@ -1,6 +1,6 @@
-import axios       from 'axios'
-import { ICard }   from '../interfaces'
-import { IOrders } from '../interfaces/interfaces'
+import axios           from 'axios'
+import { ICard }       from '../interfaces'
+import { IOrderItems } from '../interfaces/interfaces'
 
 
 const instance = axios.create({
@@ -42,10 +42,10 @@ export const fetchFavoriteItems = async (): Promise<Array<ICard>> => {
 	}
 }
 
-export const fetchOrderItems = async (): Promise<Array<ICard>> => {
+export const fetchOrderItems = async (): Promise<Array<IOrderItems>> => {
 	try {
-		const { data }: { data: IOrders[] } = await instance.get('order')
-		return data.map((item: IOrders) => item.items)
+		const { data }: { data: IOrderItems[] } = await instance.get('order')
+		return data
 	}
 	catch (e: unknown) {
 		console.log(e + ', empty array in this endpoint')
@@ -95,14 +95,14 @@ export const fetchDeleteFavorites = async (id?: number) => {
 	}
 }
 
-interface IOrderData {
+interface ISendOrder {
 	id: string
 	items: ICard[]
 }
 
 export const fetchSendOrder = async (arr: { items: ICard[] }) => {
 	try {
-		const { data }: { data: IOrderData } = await instance.post<IOrderData>('order/', arr)
+		const { data }: { data: ISendOrder } = await instance.post<ISendOrder>('order/', arr)
 		for (let i = 0; i < arr.items.length; i++) {
 			const item = arr.items[i]
 			await instance.delete(`cart/${ item.id }`)

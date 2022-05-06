@@ -27,6 +27,11 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 20px;
+
+}
+
+.orders {
+  flex-direction: column !important;
 }
 
 .greenButton {

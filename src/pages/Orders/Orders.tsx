@@ -1,5 +1,6 @@
 import styles                  from './Orders.module.scss'
 import { ICard }               from '../../interfaces'
+import { IOrderItems }         from '../../interfaces/interfaces'
 import { useEffect, useState } from 'react'
 
 import { ContentHeader } from '../../components/ContentHeader'
@@ -12,27 +13,35 @@ import { fetchOrderItems } from '../../api/api'
 
 const Orders = (): JSX.Element => {
 
-	const [ orderItems, setOrderItems ] = useState<Array<ICard>>([])
+	const [ orderItems, setOrderItems ] = useState<IOrderItems[]>([])
 	const [ isLoading, setIsLoading ] = useState(true)
 
 	useEffect(() => {
-		const getItems = async () => {
+		(async () => {
 			setIsLoading(true)
 			const orderItems = await fetchOrderItems()
 			setOrderItems(orderItems)
 			setIsLoading(false)
-		}
-
-		getItems()
+		})()
 	}, [])
 
-	const items = orderItems && orderItems.flat().map((item: ICard, index: number) => {
+	const items = orderItems && orderItems.map((order: IOrderItems, index: number) => {
 		return (
-			<Card
+			<div
 				key={ index }
-				orderedItems={ true }
-				{ ...item }
-			/>
+				className={ styles.itemsWrapper }
+			>
+				<h2>Заказ #{ order.id }</h2>
+				<div className={ styles.orderWrapper }>
+					{ order.items.map((i: ICard, index: number) =>
+						<Card
+							key={ index }
+							orderedItems={ true }
+							{ ...i }
+						/>
+					) }
+				</div>
+			</div>
 		)
 	})
 
@@ -42,7 +51,7 @@ const Orders = (): JSX.Element => {
 			{
 				isLoading
 					? <Spinner/>
-					: <div className="cardWrapper">
+					: <div className="cardWrapper orders">
 						{ orderItems && orderItems.length > 0
 							? items
 							: <Info
