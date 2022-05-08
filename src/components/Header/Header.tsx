@@ -13,17 +13,27 @@ const Header = (): JSX.Element => {
 
 	useEffect(() => {
 		document.addEventListener('click', handleOutsideClick)
-		return () => { document.removeEventListener('click', handleOutsideClick)}
+
+		return () => {
+			document.removeEventListener('click', handleOutsideClick)
+		}
 	}, [])
 
 	const handleOutsideClick = (e: any) => {
 		if (!e.path.includes(menuContentRef.current)) {
 			setIsOpened(false)
+			document.body.style.overflow = 'unset'
 		}
 	}
 
 	const openMobileMenu = () => {
 		setIsOpened(!isOpened)
+		if (!isOpened) {
+			document.body.style.overflow = 'hidden'
+		}
+		else{
+			document.body.style.overflow = 'unset'
+		}
 	}
 
 	console.log(isOpened)
