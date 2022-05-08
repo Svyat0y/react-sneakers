@@ -47,7 +47,7 @@ const Drawer = ({ opened }: { opened: boolean }): JSX.Element => {
 						width={ 32 }
 						height={ 32 }
 						className={ styles.removeBtn }
-						src='/img/remove_btn.svg'
+						src={ 'img/remove_btn.svg' }
 						alt='close'
 					/>
 				</h2>
@@ -64,7 +64,7 @@ const Drawer = ({ opened }: { opened: boolean }): JSX.Element => {
 											<CartItem key={ item.id } item={ item } onRemoveCart={ onRemoveCart }/>)
 											: <Info
 												title={
-													isOrderComplete
+													!isOrderComplete
 														? 'Корзина пустая'
 														: 'Заказ оформлен!'
 												}
@@ -77,8 +77,8 @@ const Drawer = ({ opened }: { opened: boolean }): JSX.Element => {
 												size={ 120 }
 												image={
 													!isOrderComplete
-														? '/img/empty_cart.svg'
-														: '/img/order_complete.svg'
+														? 'img/empty_cart.svg'
+														: 'img/order_complete.svg'
 												}
 											/>
 									}

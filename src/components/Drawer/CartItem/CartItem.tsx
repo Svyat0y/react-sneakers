@@ -14,7 +14,7 @@ const CartItem = ({ item, onRemoveCart }: ICartItem): JSX.Element => {
 				onClick={ () => onRemoveCart(item) }
 				width={ 32 } height={ 32 }
 				className={ styles.removeBtn }
-				src='/img/remove_btn.svg'
+				src={ 'img/remove_btn.svg' }
 				alt='close'/>
 		</div>
 	)

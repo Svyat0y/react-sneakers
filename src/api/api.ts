@@ -106,7 +106,7 @@ interface ISendOrder {
 
 export const fetchSendOrder = async (arr: { items: ICard[] }) => {
 	try {
-		const { data }: { data: ISendOrder } = await instance.post<ISendOrder>('order/', arr)
+		const { data }: { data: ISendOrder } = await instance.post<ISendOrder>('order', arr)
 		for (let i = 0; i < arr.items.length; i++) {
 			const item = arr.items[i]
 			await instance.delete(`cart/${ item.id }`)

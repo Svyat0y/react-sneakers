@@ -44,15 +44,18 @@
   }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 767px) {
   .card {
-    max-width: calc(50% - 10px)
+    max-width: calc(50% - 10px);
+    flex: 1 0 50%;
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 480px) {
   .card {
-    max-width: calc(100%)
+    max-width: calc(100%);
+    flex: 1 0 100%;
   }
 }
+
 

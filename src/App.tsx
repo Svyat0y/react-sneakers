@@ -106,7 +106,7 @@ const App = (): JSX.Element => {
 				<Drawer opened={ cartOpened }/>
 				<Header/>
 				<Routes>
-					<Route path={ '/' } element={ <Home/> }/>
+					<Route path={ '' } element={ <Home/> }/>
 					<Route path={ 'favorites/*' } element={ <Favorites/> }/>
 					<Route path={ 'orders/*' } element={ <Orders/> }/>
 				</Routes>

@@ -9,7 +9,7 @@ const Search = (): JSX.Element => {
 
 	return (
 		<div className={ styles.searchBlock }>
-			<img src="/img/search.svg" alt="search"/>
+			<img src="img/search.svg" alt="search"/>
 			<input onChange={ onHandleChange } value={ searchValue } type="search" placeholder="Поиск.."/>
 		</div>
 	)

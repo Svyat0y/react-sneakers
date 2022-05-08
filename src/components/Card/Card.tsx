@@ -36,7 +36,7 @@ const Card = ({ id, parentId, title, price, img, orderedItems, isAdded, isFavori
 					className={ styles.favorite }
 					width={ 32 }
 					height={ 32 }
-					src={ isFavorite ? '/img/heart_liked.svg' : '/img/heart_unliked.svg' }
+					src={ isFavorite ? 'img/heart_liked.svg' : 'img/heart_unliked.svg' }
 					alt='Unliked'
 				/> }
 			<img
@@ -58,7 +58,7 @@ const Card = ({ id, parentId, title, price, img, orderedItems, isAdded, isFavori
 						className='cu-p'
 						width={ 32 }
 						height={ 32 }
-						src={ isAdded ? '/img/btn_checked.svg' : '/img/btn_plus.svg' }
+						src={ isAdded ? 'img/btn_checked.svg' : 'img/btn_plus.svg' }
 						alt='btn_plus'
 					/> }
 			</div>

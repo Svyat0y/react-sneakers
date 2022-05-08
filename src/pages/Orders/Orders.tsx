@@ -61,7 +61,7 @@ const Orders = (): JSX.Element => {
 								title='У вас нет заказов'
 								description='Вы нищеброд? Оформите хотя бы один заказ.'
 								size={ 70 }
-								image='/img/smile_orders.svg'
+								image={ 'img/smile_orders.svg' }
 							/>
 						}
 					</div>

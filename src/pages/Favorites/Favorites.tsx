@@ -56,7 +56,7 @@ const Favorites = (): JSX.Element => {
 								title='Закладок нет :('
 								description='Вы ничего не добавляли в закладки'
 								size={ 70 }
-								image='/img/smile_favourite.svg'
+								image='img/smile_favourite.svg'
 							/>
 						}
 					</div>

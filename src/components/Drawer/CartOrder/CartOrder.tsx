@@ -28,7 +28,7 @@ const CartOrder = ({ cartItems, disabledBtn, onOrder }: ICartOrder): JSX.Element
 					</ul>
 					<button className={ `${ styles.greenButton } greenButton` } disabled={ disabledBtn } onClick={ onOrder }>
 						Оформить заказ
-						<img src='/img/arrow.svg' alt='orderArrow'/>
+						<img src={ 'img/arrow.svg' } alt='orderArrow'/>
 					</button>
 				</div>
 			}</>

@@ -5,7 +5,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 12;
   overflow: hidden;
   visibility: hidden;
   opacity: 0;
@@ -31,6 +31,7 @@
   overflow: auto;
   transform: translateX(100%);
   transition: ease-in-out 0.3s;
+  z-index: 6;
 
   h2 {
     margin: 0 0 30px 0;
@@ -71,5 +72,11 @@
   p {
     color: #9D9D9D;
     margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 567px) {
+  .drawer {
+    width: 100%;
   }
 }

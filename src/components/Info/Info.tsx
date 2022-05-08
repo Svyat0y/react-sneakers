@@ -4,7 +4,7 @@ import { Link }      from 'react-router-dom'
 
 
 const Info = ({ title, description, image, size, onClose }: InfoProps): JSX.Element => {
-	
+
 	return (
 		<div className={ styles.emptyWrapped }>
 			<img
@@ -16,7 +16,7 @@ const Info = ({ title, description, image, size, onClose }: InfoProps): JSX.Elem
 			<Link to={ '/' } onClick={ onClose }>
 				<button className={ `${ styles.greenButton } greenButton` }>
 					Вернуться назад
-					<img src='/img/arrow.svg' alt='orderArrow'/>
+					<img src={ 'img/arrow.svg' } alt='orderArrow'/>
 				</button>
 			</Link>
 		</div>
