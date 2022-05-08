@@ -52,7 +52,7 @@
 }
 
 .menu_content {
-  display: flex;
+  display: none;
   justify-content: flex-start;
   flex-direction: column;
   align-items: center;
@@ -143,6 +143,9 @@
 
 
 @media (max-width: 767px) {
+  .menu_content {
+    display: flex;
+  }
 
   .header {
     padding: 20px 10px;

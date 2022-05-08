@@ -83,10 +83,10 @@ const Drawer = ({ opened }: { opened: boolean }): JSX.Element => {
 											/>
 									}
 								</div>
-								<CartOrder cartItems={ cartItems } disabledBtn={ disabledBtn } onOrder={ onOrder }/>
 							</>
 					}
 				</div>
+				<CartOrder cartItems={ cartItems } disabledBtn={ disabledBtn } onOrder={ onOrder }/>
 			</div>
 		</div>
 	)
