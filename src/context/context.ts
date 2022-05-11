@@ -16,6 +16,7 @@ export interface IAppCtx {
 	openCart: () => void
 	searchValue: string
 	totalPrice: number
+	cartOpened: boolean
 }
 
 export const AppContext = createContext<IAppCtx>({
@@ -31,5 +32,6 @@ export const AppContext = createContext<IAppCtx>({
 	onHandleChange: () => undefined,
 	searchValue: '',
 	openCart: () => undefined,
-	totalPrice: 0
+	totalPrice: 0,
+	cartOpened: false
 })

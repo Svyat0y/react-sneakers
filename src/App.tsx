@@ -97,7 +97,8 @@ const App = (): JSX.Element => {
 		onRemoveCart,
 		onHandleChange,
 		openCart,
-		totalPrice
+		totalPrice,
+		cartOpened
 	}
 
 	return (

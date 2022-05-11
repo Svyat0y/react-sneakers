@@ -8,7 +8,7 @@ import { AppContext } from '../../context'
 
 const Header = (): JSX.Element => {
 	const [ isOpened, setIsOpened ] = useState(false)
-	const { openCart, totalPrice } = useContext(AppContext)
+	const { openCart, cartOpened, totalPrice } = useContext(AppContext)
 	const menuContentRef = useRef<any>(null)
 
 	useEffect(() => {
@@ -22,21 +22,23 @@ const Header = (): JSX.Element => {
 	const handleOutsideClick = (e: any) => {
 		if (!e.path.includes(menuContentRef.current)) {
 			setIsOpened(false)
-			document.body.style.overflow = 'unset'
 		}
 	}
 
 	const openMobileMenu = () => {
 		setIsOpened(!isOpened)
-		if (!isOpened) {
-			document.body.style.overflow = 'hidden'
-		}
-		else{
-			document.body.style.overflow = 'unset'
-		}
 	}
 
-	console.log(isOpened)
+	if (!isOpened) {
+		document.body.style.overflow = 'unset'
+	}
+	else{
+		document.body.style.overflow = 'hidden'
+	}
+
+	if (cartOpened) {
+		document.body.style.overflow = 'hidden'
+	}
 
 	return (
 		<>
