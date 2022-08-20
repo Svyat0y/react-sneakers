@@ -3,6 +3,7 @@ import cn                                          from 'classnames'
 import { Link }                                    from 'react-router-dom'
 import { useContext, useEffect, useRef, useState } from 'react'
 
+
 import { AppContext } from '../../context'
 
 
@@ -55,7 +56,7 @@ const Header = (): JSX.Element => {
 				<ul className={ styles.headerRight }>
 					<li onClick={ openCart }>
 						<img width={ 20 } height={ 20 } src={ 'img/cart.svg' } alt='cart'/>
-						<span>{ totalPrice } руб.</span>
+						<span>{ totalPrice } UAH.</span>
 					</li>
 					<li>
 						<Link to={ 'favorites' }>

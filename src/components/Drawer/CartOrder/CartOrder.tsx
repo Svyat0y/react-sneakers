@@ -23,7 +23,7 @@ const CartOrder = ({ cartItems, disabledBtn, onOrder }: ICartOrder): JSX.Element
 						<li className='d-flex'>
 							<span>Налог 5%</span>
 							<div></div>
-							<b>{ tax } руб.</b>
+							<b>{ tax } UAH.</b>
 						</li>
 					</ul>
 					<button className={ `${ styles.greenButton } greenButton` } disabled={ disabledBtn } onClick={ onOrder }>

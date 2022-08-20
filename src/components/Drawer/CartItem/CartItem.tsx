@@ -8,7 +8,7 @@ const CartItem = ({ item, onRemoveCart }: ICartItem): JSX.Element => {
 			<img width={ 70 } height={ 70 } src={ item.img } alt='sneakers'/>
 			<div>
 				<p>{ item.title }</p>
-				<b>{ item.price } руб.</b>
+				<b>{ item.price } UAH.</b>
 			</div>
 			<img
 				onClick={ () => onRemoveCart(item) }
